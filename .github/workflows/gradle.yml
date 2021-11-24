@@ -23,6 +23,6 @@ jobs:
         distribution: 'adopt'
         cache: gradle
     - name: Grant execute permission for gradlew
-      run: chmod +x ./Lukuvinkkikirjasto/gradlew
+      run: chmod +x gradlew
     - name: Build with Gradle
-      run: ./Lukuvinkkikirjasto/gradlew build
+      run: ./gradlew build
