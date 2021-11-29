@@ -4,7 +4,7 @@ apply plugin: 'application'
 apply plugin: 'checkstyle'
 
 
-mainClassName = 'Lukuvinkkikirjasto.Main'
+mainClassName = 'lukuvinkkikirjasto.Main'
 
 repositories {
     jcenter()
@@ -20,7 +20,7 @@ jacocoTestReport {
 }
 
 application {
-    mainClass = 'Lukuvinkkikirjasto.Main'
+    mainClass = 'lukuvinkkikirjasto.Main'
 }
 
 tasks.withType(Checkstyle) {
