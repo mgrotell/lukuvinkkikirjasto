@@ -1,6 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'jacoco'
 apply plugin: 'application'
+apply plugin: 'checkstyle'
 
 
 mainClassName = 'Lukuvinkkikirjasto.Main'
@@ -20,13 +21,6 @@ jacocoTestReport {
 
 application {
     mainClass = 'ohtu.ohtuvarasto.Main'
-}
-
-tasks.withType(Checkstyle) {
-    reports {
-        xml.required = false
-        html.required = false
-    }
 }
 
 tasks.withType(Checkstyle) {
