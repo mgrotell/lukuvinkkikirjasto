@@ -15,4 +15,24 @@ jacocoTestReport {
         html.enabled true
     }
      
+
+}
+
+application {
+    mainClass = 'ohtu.ohtuvarasto.Main'
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false
+        html.required = false
+    }
+}
+
+tasks.withType(Checkstyle) {
+    reports {
+        xml.required = false
+        html.required = true
+        html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+    }
 }
