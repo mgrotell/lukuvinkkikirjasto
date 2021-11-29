@@ -20,7 +20,7 @@ jacocoTestReport {
 }
 
 application {
-    mainClass = 'ohtu.ohtuvarasto.Main'
+    mainClass = 'Lukuvinkkikirjasto.Main'
 }
 
 tasks.withType(Checkstyle) {
