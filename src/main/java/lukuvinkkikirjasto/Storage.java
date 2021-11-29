@@ -1,10 +1,9 @@
-package Lukuvinkkikirjasto;
-import java.util.ArrayList;
+package lukuvinkkikirjasto;
 
 import java.util.ArrayList;
 
 public class Storage {
-    private ArrayList<Tip> tips;
+    private  ArrayList<Tip> tips;
 
     public Storage() {
         this.tips = new ArrayList<>();

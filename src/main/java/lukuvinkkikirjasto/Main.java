@@ -3,23 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Lukuvinkkikirjasto;
-
-import jdk.swing.interop.SwingInterOpUtils;
+package lukuvinkkikirjasto;
 
 import java.util.Scanner;
 
 /**
- *
  * @author miklas
  */
-                
+
 public class Main {
 
     /**
      * @param args the command line arguments
      */
-                
+
     public static void main(String[] args) {
 
         Storage storage = new Storage();
@@ -28,9 +25,8 @@ public class Main {
 
         TextUI ui = new TextUI(input, storage);
         ui.run();
-        
-        
+
 
     }
-    
+
 }

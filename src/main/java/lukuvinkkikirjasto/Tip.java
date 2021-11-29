@@ -1,4 +1,4 @@
-package Lukuvinkkikirjasto;
+package lukuvinkkikirjasto;
 
 public class Tip implements TipI {
 
