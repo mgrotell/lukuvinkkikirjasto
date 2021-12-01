@@ -5,7 +5,10 @@
  */
 package lukuvinkkikirjasto;
 
-import java.util.Scanner;
+import lukuvinkkikirjasto.main.Reader;
+import lukuvinkkikirjasto.main.ReaderIO;
+import lukuvinkkikirjasto.storage.Storage;
+import lukuvinkkikirjasto.ui.TextUI;
 
 /**
  * @author miklas
@@ -21,9 +24,9 @@ public class Main {
 
         Storage storage = new Storage();
 
-        Scanner input = new Scanner(System.in);
+        ReaderIO reader = new Reader();
 
-        TextUI ui = new TextUI(input, storage);
+        TextUI ui = new TextUI(reader, storage);
         ui.run();
 
     }

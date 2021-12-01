@@ -1,21 +1,23 @@
-package lukuvinkkikirjasto;
+package lukuvinkkikirjasto.ui;
 
-import jdk.swing.interop.SwingInterOpUtils;
-
-import java.util.Scanner;
+import lukuvinkkikirjasto.main.ReaderIO;
+import lukuvinkkikirjasto.main.Tip;
+import lukuvinkkikirjasto.storage.Storage;
 
 public class TextUI {
 
 
-    private  Scanner input;
-    private  Storage storage;
+    private ReaderIO input;
+    private Storage storage;
 
-    public TextUI(Scanner scanner, Storage storage) {
+    public TextUI(ReaderIO scanner, Storage storage) {
         this.input = scanner;
         this.storage = storage;
     }
 
     public void run() {
+
+
         while (true) {
 
             System.out.println("1. List all tips.\n" +
@@ -39,8 +41,8 @@ public class TextUI {
     }
 
     private void addTip() {
-        System.out.println("Let´s create a tip. Select type: (Book)");
-        String type = this.input.nextLine();
+
+        String type = getTipType();
 
         System.out.println("Insert header");
 
@@ -70,11 +72,43 @@ public class TextUI {
 
         String courses = this.input.nextLine();
 
-        Tip tiptap = new Tip(header, description, creator, url, type, tags, comment, courses);
-
-        System.out.println("Tip created!");
-
-        storage.addToStorage(tiptap);
-
+        createTip(storage, header, description, creator, url, type, tags, comment, courses);
     }
+
+    public void createTip(Storage storage, String header, String description,
+                          String creator, String url, String type, String tags, String comment,
+                          String courses) {
+
+        Tip tiptap = new Tip(header, description, creator, url, type, tags, comment, courses);
+        System.out.println("Tip created!");
+        storage.addToStorage(tiptap);
+    }
+
+
+    public String getTipType() {
+
+        System.out.println("Let´s create a tip. \n\n" +
+                "Select type:\n" +
+                "1. Book \n" +
+                "2. Video \n" +
+                "3. Podcast \n" +
+                "4. Blog \n");
+
+        String type = input.nextLine();
+
+        type = "";
+
+        if (type.equals("1")) {
+            type = "book";
+        } else if (type.equals("2")) {
+            type = "video";
+        } else if (type.equals("3")) {
+            type = "podcast";
+        } else if (type.equals("4")) {
+            type = "blog";
+        }
+
+        return type;
+    }
+
 }
