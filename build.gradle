@@ -11,12 +11,11 @@ repositories {
 }
 
 jacocoTestReport {
+
     reports {
         xml.enabled true
         html.enabled true
     }
-     
-
 }
 
 application {
@@ -26,6 +25,7 @@ application {
 
 dependencies {
     testImplementation 'io.cucumber:cucumber-java:7.0.0'
+    implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
 }
 
 configurations {

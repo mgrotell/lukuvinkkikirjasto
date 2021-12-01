@@ -26,7 +26,6 @@ public class Main {
         TextUI ui = new TextUI(input, storage);
         ui.run();
 
-
     }
 
 }

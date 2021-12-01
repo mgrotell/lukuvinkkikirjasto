@@ -3,6 +3,8 @@ package lukuvinkkikirjasto;
 import java.util.ArrayList;
 
 public class Storage {
+
+
     private  ArrayList<Tip> tips;
 
     public Storage() {

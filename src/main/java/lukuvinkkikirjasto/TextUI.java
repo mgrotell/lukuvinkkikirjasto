@@ -1,5 +1,7 @@
 package lukuvinkkikirjasto;
 
+import jdk.swing.interop.SwingInterOpUtils;
+
 import java.util.Scanner;
 
 public class TextUI {
@@ -69,6 +71,8 @@ public class TextUI {
         String courses = this.input.nextLine();
 
         Tip tiptap = new Tip(header, description, creator, url, type, tags, comment, courses);
+
+        System.out.println("Tip created!");
 
         storage.addToStorage(tiptap);
 
