@@ -1,8 +1,8 @@
 CREATE TABLE Tips (
-	id SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     header TEXT,
     description TEXT,
-	creator TEXT,
+    creator TEXT,
     url TEXT,
     tags TEXT,
     type TEXT,
@@ -10,7 +10,7 @@ CREATE TABLE Tips (
     comment TEXT
 );
 CREATE TABLE Courses (
-	id SERIAL PRIMARY KEY,
-	name TEXT,
-	url TEXT
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    url TEXT
 );
