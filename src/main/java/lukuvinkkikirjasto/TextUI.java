@@ -46,7 +46,9 @@ public class TextUI {
             "3. Podcast \n" +
             "4. Blog \n");
         
-        String type = this.input.nextLine();
+        String typeChoice = this.input.nextLine();
+
+        String type = getTipType(typeChoice);
 
         System.out.println("Insert header");
 
@@ -75,9 +77,11 @@ public class TextUI {
         System.out.println("Insert a courses and separate with a ',':\n");
 
         String courses = this.input.nextLine();
+
+        createTip(storage, header, description, creator, url, type, tags, comment, courses);
     }
 
-    public void createTip(Tip tip, Storage storage, String header, String description, 
+    public void createTip(Storage storage, String header, String description, 
         String creator, String url, String type, String tags, String comment, 
         String courses) {
         
@@ -85,4 +89,21 @@ public class TextUI {
         System.out.println("Tip created!");
         storage.addToStorage(tiptap);
     }
+
+    public String getTipType(String type) {
+        type = "";
+        
+        if (type.equals("1")) {
+            type = "book";    
+        } else if (type.equals("2")) {
+            type = "video";
+        } else if (type.equals("3")) {
+            type = "podcast";
+        } else if (type.equals("4")) {
+            type = "blog";
+        }
+
+        return type;
+    }
+
 }
