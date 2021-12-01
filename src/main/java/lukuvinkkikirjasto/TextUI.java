@@ -39,7 +39,13 @@ public class TextUI {
     }
 
     private void addTip() {
-        System.out.println("Let´s create a tip. Select type: (Book)");
+        System.out.println("Let´s create a tip. \n\n" + 
+            "Select type:\n" +
+            "1. Book \n" +
+            "2. Video \n" +
+            "3. Podcast \n" +
+            "4. Blog \n");
+        
         String type = this.input.nextLine();
 
         System.out.println("Insert header");
@@ -69,12 +75,14 @@ public class TextUI {
         System.out.println("Insert a courses and separate with a ',':\n");
 
         String courses = this.input.nextLine();
+    }
 
+    public void createTip(Tip tip, Storage storage, String header, String description, 
+        String creator, String url, String type, String tags, String comment, 
+        String courses) {
+        
         Tip tiptap = new Tip(header, description, creator, url, type, tags, comment, courses);
-
         System.out.println("Tip created!");
-
         storage.addToStorage(tiptap);
-
     }
 }
