@@ -2,17 +2,18 @@ package lukuvinkkikirjasto.ui;
 
 import lukuvinkkikirjasto.main.ReaderIO;
 import lukuvinkkikirjasto.main.Tip;
+import lukuvinkkikirjasto.main.TipHandler;
 import lukuvinkkikirjasto.storage.Storage;
 
 public class TextUI {
 
 
     private ReaderIO input;
-    private Storage storage;
+    private TipHandler tipHandler;
 
-    public TextUI(ReaderIO scanner, Storage storage) {
+    public TextUI(ReaderIO scanner, TipHandler tipHandler) {
         this.input = scanner;
-        this.storage = storage;
+        this.tipHandler = tipHandler;
     }
 
     public void run() {
@@ -29,7 +30,7 @@ public class TextUI {
 
             if (operation.equals("1")) {
                 System.out.println("1");
-                System.out.println(storage.getStorage());
+                System.out.println(tipHandler.getStorage());
             } else if (operation.equals("2")) {
                 addTip();
             } else if (operation.equals("0")) {
@@ -72,16 +73,7 @@ public class TextUI {
 
         String courses = this.input.nextLine();
 
-        createTip(storage, header, description, creator, url, type, tags, comment, courses);
-    }
-
-    public void createTip(Storage storage, String header, String description,
-                          String creator, String url, String type, String tags, String comment,
-                          String courses) {
-
-        Tip tiptap = new Tip(header, description, creator, url, type, tags, comment, courses);
-        System.out.println("Tip created!");
-        storage.addToStorage(tiptap);
+        this.tipHandler.createTip(header, description, creator, url, type, tags, comment, courses);
     }
 
 
