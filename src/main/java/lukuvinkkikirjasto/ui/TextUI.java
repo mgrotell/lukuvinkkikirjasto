@@ -96,7 +96,6 @@ public class TextUI {
 
         String type = input.nextLine();
 
-        type = "";
 
         if (type.equals("1")) {
             type = "book";
