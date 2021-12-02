@@ -36,4 +36,6 @@ public class Tip implements TipI {
                 ", courses='" + courses + '\'' +
                 '}';
     }
+
+
 }

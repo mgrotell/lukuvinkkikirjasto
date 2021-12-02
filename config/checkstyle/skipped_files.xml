@@ -6,4 +6,5 @@
 
 <suppressions>
     <suppress files="lukuvinkkikirjasto.Main" checks="[a-zA-Z0-9]*"/>
+    <suppress files="textUITests.DefiningSteps" checks="[a-zA-Z0-9]*"/>
 </suppressions>

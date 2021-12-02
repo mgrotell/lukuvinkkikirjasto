@@ -1,3 +1,5 @@
+package textUITests;
+
 import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -21,17 +23,18 @@ public class DefiningSteps {
     public void start() {
         storage = new Storage();
         testR = new TestReader();
-    }
-
-
-    @Given("User enters 2 to add tip")
-    public void addTip() {
-        testR.addLine("2");
 
     }
 
-    @When("User enters tip info")
-    public void creatingTip(String type, String header, String description, String creator, String url, String tags, String comment, String courses) {
+
+    @Given("User enters {int} to add tip")
+    public void user_enters_to_add_tip(Integer path) {
+        testR.addLine(path+"");
+
+    }
+
+    @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
+    public void are_entered(String type, String header, String description, String creator, String url, String tags, String comment, String courses) {
         testR.addLine(type);
         testR.addLine(header);
         testR.addLine(description);
@@ -44,13 +47,15 @@ public class DefiningSteps {
     }
 
     @Then("tip is created")
-    public void createTip() {
+    public void tip_is_created() {
         textUi = new TextUI(testR, storage);
 
         assertEquals(1, storage.getStorage().size());
 
 
     }
+
+
 
 
 }

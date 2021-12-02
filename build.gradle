@@ -8,6 +8,7 @@ mainClassName = 'lukuvinkkikirjasto.Main'
 
 repositories {
     jcenter()
+    mavenCentral()
 }
 
 jacocoTestReport {
@@ -25,6 +26,7 @@ application {
 
 dependencies {
     testImplementation 'io.cucumber:cucumber-java:7.0.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.0.0'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.3.1'
     testImplementation group: 'junit', name: 'junit', version: '4.4'
 }
@@ -51,6 +53,7 @@ tasks.withType(Checkstyle) {
         xml.required = false
         html.required = true
         html.stylesheet resources.text.fromFile('config/xsl/checkstyle-custom.xsl')
+        exclude 'textUITests/*'
     }
 }
 
