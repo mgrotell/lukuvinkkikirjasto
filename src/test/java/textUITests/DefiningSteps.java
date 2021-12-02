@@ -7,6 +7,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lukuvinkkikirjasto.main.ReaderIO;
+import lukuvinkkikirjasto.main.TipHandler;
 import lukuvinkkikirjasto.storage.Storage;
 import lukuvinkkikirjasto.ui.TextUI;
 
@@ -21,12 +22,13 @@ public class DefiningSteps {
     Storage storage;
     TextUI textUi;
     TestReader testR;
+    TipHandler tipHandler;
 
   @Before
     public void start() {
         storage = new Storage();
+        tipHandler = new TipHandler(storage);
         testR = new TestReader();
-
     }
 
     @Given("User enters create to add tip")
@@ -43,7 +45,7 @@ public class DefiningSteps {
         testR.addLine(tags);
         testR.addLine(comment);
         testR.addLine(courses);
-        textUi = new TextUI(testR, storage);
+        textUi = new TextUI(testR, tipHandler);
 
     }
     @Then("tip is created")
