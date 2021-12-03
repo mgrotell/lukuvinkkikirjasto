@@ -19,10 +19,35 @@ public class Tip implements TipI {
         this.type = type;
         this.descpription = description;
         this.tags = tags;
-        this.comment = tags;
+        this.comment = comment;
         this.courses = courses;
     }
 
+    public String getHeader() {
+        return this.header;
+    }
+    public String getDescription() {
+        return this.descpription;
+    }
+    public String getCreator() {
+        return this.creator;
+    }
+    public String getUrl() {
+        return this.url;
+    }
+    public String getType() {
+        return this.type;
+    }
+    public String getTags() {
+        return this.tags;
+    }
+    public String getComment() {
+        return this.comment;
+    }
+    public String getCourses() {
+        return this.courses;
+    }
+    
     @Override
     public String toString() {
         return "Tip{" +

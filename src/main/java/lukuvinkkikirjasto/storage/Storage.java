@@ -2,23 +2,81 @@ package lukuvinkkikirjasto.storage;
 
 import lukuvinkkikirjasto.main.Tip;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Storage {
 
 
     private ArrayList<Tip> tips;
+    private Database db;
 
     public Storage() {
         this.tips = new ArrayList<>();
+        try {
+            this.db = new Database();
+            this.db.createTables(this.db.getConnection());
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            
+        }
     }
 
     public void addToStorage(Tip tip) {
         this.tips.add(tip);
+        try {
+            Connection connection = this.db.getConnection();
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO tips "+
+            "(header, description, creator, url, tags, type, courses, comment)"+
+            " VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            statement.setString(1, tip.getHeader());
+            statement.setString(2, tip.getDescription());
+            statement.setString(3, tip.getCreator());
+            statement.setString(4, tip.getUrl());
+            statement.setString(5, tip.getTags());
+            statement.setString(6, tip.getType());
+            statement.setString(7, tip.getCourses());
+            statement.setString(8, tip.getComment());
+            statement.executeUpdate();
+            connection.close();
+            
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+            
+        }
     }
 
-    public ArrayList getStorage() {
-        return this.tips;
+    public ArrayList<Tip> getStorage() {
+        try{
+            Connection connection = this.db.getConnection();
+            Statement statement = connection.createStatement();
+            ResultSet queryResult = statement.executeQuery("SELECT * FROM tips");
+            ArrayList<Tip> tips = new ArrayList<>();
+            while(queryResult.next()){
+                Tip tip = new Tip(
+                    queryResult.getString("header"),
+                    queryResult.getString("description"),
+                    queryResult.getString("creator"),
+                    queryResult.getString("url"),
+                    queryResult.getString("type"),
+                    queryResult.getString("tags"),
+                    queryResult.getString("comment"),
+                    queryResult.getString("courses")
+                    );
+                tips.add(tip);
+            }
+            return tips;
+
+        } catch (SQLException e) {
+            System.out.println(e.getSQLState());
+            
+        }
+        
+        return new ArrayList<Tip>();
     }
 
 }
