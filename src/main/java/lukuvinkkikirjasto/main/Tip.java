@@ -6,7 +6,7 @@ public class Tip implements TipI {
     private String creator;
     private String url;
     private String type;
-    private String descpription;
+    private String description;
     private String tags;
     private String comment;
     private String courses;
@@ -17,7 +17,7 @@ public class Tip implements TipI {
         this.creator = creator;
         this.url = url;
         this.type = type;
-        this.descpription = description;
+        this.description = description;
         this.tags = tags;
         this.comment = comment;
         this.courses = courses;
@@ -27,7 +27,7 @@ public class Tip implements TipI {
         return this.header;
     }
     public String getDescription() {
-        return this.descpription;
+        return this.description;
     }
     public String getCreator() {
         return this.creator;
