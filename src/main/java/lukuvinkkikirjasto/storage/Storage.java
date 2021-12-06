@@ -2,6 +2,9 @@ package lukuvinkkikirjasto.storage;
 
 import lukuvinkkikirjasto.main.Tip;
 
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,10 +18,10 @@ public class Storage {
     private ArrayList<Tip> tips;
     private Database db;
 
-    public Storage() {
+    public Storage(boolean test) {
         this.tips = new ArrayList<>();
         try {
-            this.db = new Database();
+            this.db = new Database(test);
             this.db.createTables(this.db.getConnection());
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -48,6 +51,17 @@ public class Storage {
             System.out.println(e.getMessage());
             
         }
+    }
+    public void deleteTestDatabase() {
+      try {
+              Path pathToTestDatabase = FileSystems.getDefault().getPath("test.db");
+              Files.delete(pathToTestDatabase);
+          } catch (Exception e) {
+              System.out.println("Test database was not deleted.");
+          }
+    }
+    public void initializeTestDatabase() {
+        this.db.createTables(this.db.getConnection());
     }
 
     public ArrayList<Tip> getStorage() {

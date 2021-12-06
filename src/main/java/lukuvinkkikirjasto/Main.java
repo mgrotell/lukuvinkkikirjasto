@@ -22,7 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Storage storage = new Storage();
+        Storage storage = new Storage(false);
 
         ReaderIO reader = new Reader();
 

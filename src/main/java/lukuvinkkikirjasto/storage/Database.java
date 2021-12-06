@@ -8,13 +8,19 @@ import java.sql.Statement;
 public class Database {
     private String databaseUrl;
 
-    public Database() {
-        this.databaseUrl = "jdbc:sqlite:tip.db";
+    public Database(boolean test) {
+        if (test) {
+            this.databaseUrl = "jdbc:sqlite:test.db";
+        } else {
+            this.databaseUrl = "jdbc:sqlite:tip.db";
+        }
+        
     }
     public Connection getConnection() {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(this.databaseUrl);
+            
         } catch (SQLException e) {
             System.out.println("Getting database connection failed" + e.getMessage());
         }

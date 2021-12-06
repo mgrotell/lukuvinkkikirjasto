@@ -24,7 +24,10 @@ public class DefiningSteps {
 
   @Before
     public void start() {
-        storage = new Storage();
+        storage = new Storage(true);
+        storage.deleteTestDatabase();
+        storage.initializeTestDatabase();
+        
         testR = new TestReader();
 
     }
@@ -43,40 +46,49 @@ public class DefiningSteps {
         testR.addLine(tags);
         testR.addLine(comment);
         testR.addLine(courses);
+        testR.addLine("0");
         textUi = new TextUI(testR, storage);
-
+        textUi.run();
     }
     @Then("tip is created")
     public void tipIsCreated() {
-       assertTrue(true);// korjaa loppu osa
+        System.out.println(this.storage.getStorage());
+        
+        assertEquals(1, this.testR.tipsCreated);
     }
-
-
-
 }
 
 class TestReader implements ReaderIO {
 
     int currentMessage;
     ArrayList<String> sentMessages;
+    ArrayList<String> consoleMessages;
+    int tipsCreated;
 
     public TestReader() {
         sentMessages = new ArrayList<>();
+        consoleMessages = new ArrayList<>();
         currentMessage = 0;
+        this.tipsCreated = 0;
     }
 
     public String nextLine() {
-
         return sentMessages.get(currentMessage++);
-
     }
-
+    public ArrayList<String> getConsoleMessages(){
+        return this.consoleMessages;
+    }
+    public int getTipsCreated() {
+        return this.tipsCreated;
+    }
+    public void println(String line) {
+        consoleMessages.add(line);
+        if( line.equals("Tip created!")) {
+            this.tipsCreated++;
+        }
+    }
     public void addLine(String line) {
         sentMessages.add(line);
 
     }
 }
-
-
-
-
