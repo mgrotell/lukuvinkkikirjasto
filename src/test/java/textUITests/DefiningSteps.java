@@ -8,6 +8,7 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lukuvinkkikirjasto.main.ReaderIO;
 import lukuvinkkikirjasto.storage.Storage;
+import lukuvinkkikirjasto.main.TipHandler;
 import lukuvinkkikirjasto.ui.TextUI;
 
 import java.util.ArrayList;
@@ -19,6 +20,7 @@ import static org.junit.Assert.assertTrue;
 public class DefiningSteps {
 
     Storage storage;
+    TipHandler tipHandler;
     TextUI textUi;
     TestReader testR;
 
@@ -29,6 +31,7 @@ public class DefiningSteps {
         storage.initializeTestDatabase();
         
         testR = new TestReader();
+        tipHandler = new TipHandler(storage);
 
     }
 
@@ -47,7 +50,7 @@ public class DefiningSteps {
         testR.addLine(comment);
         testR.addLine(courses);
         testR.addLine("0");
-        textUi = new TextUI(testR, storage);
+        textUi = new TextUI(testR, tipHandler);
         textUi.run();
     }
     @Then("tip is created")

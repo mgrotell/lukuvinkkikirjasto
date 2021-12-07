@@ -30,7 +30,7 @@ public class TextUI {
 
             if (operation.equals("1")) {
                 this.input.println("1");
-                for( Tip tip : storage.getStorage()){
+                for (Tip tip : storage.getStorage()) {
                     this.input.println(tip.toString());
                 }
             } else if (operation.equals("2")) {
@@ -38,8 +38,6 @@ public class TextUI {
             } else if (operation.equals("0")) {
                 break;
             }
-
-
         }
     }
 
