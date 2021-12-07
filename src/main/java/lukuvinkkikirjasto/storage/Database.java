@@ -29,15 +29,15 @@ public class Database {
     public void createTables(Connection db) {
         try {
             Statement s = db.createStatement();
-            s.execute("CREATE TABLE IF NOT EXISTS tips ("+
-                "id INTEGER PRIMARY KEY,"+
-                "header TEXT,"+
-                "description TEXT,"+
-                "creator TEXT,"+
-                "url url,"+
-                "tags TEXT,"+
-                "type TEXT,"+
-                "courses TEXT,"+
+            s.execute("CREATE TABLE IF NOT EXISTS tips (" +
+                "id INTEGER PRIMARY KEY," +
+                "header TEXT," +
+                "description TEXT," +
+                "creator TEXT," +
+                "url url," +
+                "tags TEXT," +
+                "type TEXT," +
+                "courses TEXT," +
                 "comment TEXT);");
 
             s.close();

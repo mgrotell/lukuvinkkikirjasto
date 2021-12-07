@@ -51,8 +51,8 @@ public class Tip implements TipI {
     @Override
     public String toString() {
         return "Header: " + this.header + "\nWriter: " + this.creator + "\nDescription: " +
-		 this.description + "\nURL: " + this.url + "\nType: " + this.type +
-		 "\nTags: " + this.tags + "\nComments: " + this.comment + "\nRelated courses: " + this.courses + "\n\n";
+            this.description + "\nURL: " + this.url + "\nType: " + this.type +
+            "\nTags: " + this.tags + "\nComments: " + this.comment + "\nRelated courses: " + this.courses + "\n\n";
     }
 
 
