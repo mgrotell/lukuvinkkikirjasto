@@ -85,13 +85,13 @@ public class Storage {
         try {
             Connection connection = this.db.getConnection();
             String sql = "";
-            if (column.equals("header")){
+            if (column.equals("header")) {
                 sql = "SELECT * FROM tips WHERE header=?";
-            } else if (column.equals("creator")){
+            } else if (column.equals("creator")) {
                 sql = "SELECT * FROM tips WHERE creator=?";
-            } else if (column.equals("type")){
+            } else if (column.equals("type")) {
                 sql = "SELECT * FROM tips WHERE type=?";
-            } else if (column.equals("tags")){
+            } else if (column.equals("tags")) {
                 sql = "SELECT * FROM tips WHERE tags=?";
             }
             PreparedStatement statement = connection.prepareStatement(sql);
