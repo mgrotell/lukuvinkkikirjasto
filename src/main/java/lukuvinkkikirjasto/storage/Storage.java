@@ -51,6 +51,7 @@ public class Storage {
             System.out.println(e.getMessage());
         }
     }
+
     public void deleteTestDatabase() {
         try {
             Path pathToTestDatabase = FileSystems.getDefault().getPath("test.db");
@@ -68,28 +69,65 @@ public class Storage {
             Connection connection = this.db.getConnection();
             Statement statement = connection.createStatement();
             ResultSet queryResult = statement.executeQuery("SELECT * FROM tips");
-            ArrayList<Tip> tips = new ArrayList<>();
-            while (queryResult.next()) {
-                Tip tip = new Tip(
-                    queryResult.getString("header"),
-                    queryResult.getString("description"),
-                    queryResult.getString("creator"),
-                    queryResult.getString("url"),
-                    queryResult.getString("type"),
-                    queryResult.getString("tags"),
-                    queryResult.getString("comment"),
-                    queryResult.getString("courses")
-                    );
-                tips.add(tip);
-            }
-            return tips;
+
+            return getTipsFromQuery(queryResult);
 
         } catch (SQLException e) {
             System.out.println(e.getSQLState());
-            
+
         }
-        
+
         return new ArrayList<Tip>();
     }
 
+    public ArrayList<Tip> getTipsWithSearchTerm(String column, String term) {
+
+        try {
+            Connection connection = this.db.getConnection();
+            String sql = "";
+            if (column.equals("header")){
+                sql = "SELECT * FROM tips WHERE header=?";
+            } else if (column.equals("creator")){
+                sql = "SELECT * FROM tips WHERE creator=?";
+            } else if (column.equals("type")){
+                sql = "SELECT * FROM tips WHERE type=?";
+            } else if (column.equals("tags")){
+                sql = "SELECT * FROM tips WHERE tags=?";
+            }
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, term);
+            ResultSet queryResult = statement.executeQuery();
+            return getTipsFromQuery(queryResult);
+
+
+
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+
+        return new ArrayList<Tip>();
+    }
+    public ArrayList<Tip> getTipsFromQuery(ResultSet queryResult) {
+        ArrayList<Tip> tips = new ArrayList<>();
+        try {
+            while (queryResult.next()) {
+                Tip tip = new Tip(
+                        queryResult.getString("header"),
+                        queryResult.getString("description"),
+                        queryResult.getString("creator"),
+                        queryResult.getString("url"),
+                        queryResult.getString("type"),
+                        queryResult.getString("tags"),
+                        queryResult.getString("comment"),
+                        queryResult.getString("courses")
+                );
+                tips.add(tip);
+
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return tips;
+    }
 }
