@@ -7,5 +7,5 @@ Feature: As a user I can add a tip in the library
 
     Scenario: user lists items
       Given the library has two tips in it
-      When  user enters 1 to list the tips
-      Then  app prints a list of tips it contains
+      When  user enters one to list the tips
+      Then  app lists the tips it has stored

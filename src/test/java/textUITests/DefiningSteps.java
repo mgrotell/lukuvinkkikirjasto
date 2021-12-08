@@ -12,6 +12,7 @@ import lukuvinkkikirjasto.main.TipHandler;
 import lukuvinkkikirjasto.ui.TextUI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import lukuvinkkikirjasto.main.Tip;
 
 import static org.junit.Assert.assertEquals;
@@ -24,12 +25,8 @@ public class DefiningSteps {
     TipHandler tipHandler;
     TextUI textUi;
     TestReader testR;
-    @Before
 
-<<<<<<< HEAD
-=======
     @Before
->>>>>>> a36df6dee4b5466527125c168f26b4b7e2dfd701
     public void start() {
         storage = new Storage(true);
         storage.deleteTestDatabase();
@@ -37,7 +34,6 @@ public class DefiningSteps {
         
         testR = new TestReader();
         tipHandler = new TipHandler(storage);
-
     }
 
     @Given("user enters create to add tip")
@@ -45,34 +41,43 @@ public class DefiningSteps {
         testR.addLine("2");
     }
 
-<<<<<<< HEAD
     @Given("the library has two tips in it")
     public void theLibraryHasTwoTipsInIt() {
-        Tip firstTip = new Tip("book", "The Mythical Man-Month", "A book about software engineering",
-            "Fredrick Brooks", "none", "software engineering, classics",
+        Tip firstTip = new Tip("The Mythical Man-Month", "A book about software engineering", 
+            "Fredrick Brooks", "none", "book", "software engineering, classics", 
             "Classic software engineering book", "Ohjelmistotuotanto");
 
-        Tip secondTip = new Tip("blog", "The Pratical Test Pyramid", "Recommended in ohtu lecture",
-            "Martin Flower", "https://martinfowler.com/articles/practical-test-pyramid.html",
-            "Software engineering, testing", "One proposition of how to test software",
+        Tip secondTip = new Tip("The Pratical Test Pyramid", "Recommended in ohtu lecture",  
+            "Martin Fowler", "https://martinfowler.com/articles/practical-test-pyramid.html",
+            "blog", "software engineering, testing", "One proposition of how to test software",
             "Ohjelmistotuotanto");
 
         storage.addToStorage(firstTip);
         storage.addToStorage(secondTip);
     }
 
-    @When("user enters 1 to list the tips")
-    public void userEnters1toListTheTips() {
+    @When("user enters one to list the tips")
+    public void userEntersOnetoListTheTips() {
         testR.addLine("1");
+        testR.addLine("0");
+        textUi = new TextUI(testR, tipHandler);
+        textUi.run();
     }
    
-    @Then("app prints a list of tips it contains")
-    public void appPrintsAListOfTipsItContains() {
-        System.out.println(testR.getConsoleMessages());
+    @Then("app lists the tips it has stored")
+    public void appListsTheTipsItHasStored() {
+        ArrayList<String> appOutput = testR.getConsoleMessages();
+
+        String firstTip = appOutput.get(2);
+        String secondTip = appOutput.get(3);
+
+        String[] firstTipAsArray = firstTip.split("\\n");
+        String[] secondTipAsArray = secondTip.split("\\n");
+
+        assertTrue(Arrays.asList(firstTipAsArray).contains("Writer: Fredrick Brooks"));
+        assertTrue(Arrays.asList(secondTipAsArray).contains("Writer: Martin Fowler"));
     }
 
-=======
->>>>>>> a36df6dee4b5466527125c168f26b4b7e2dfd701
     @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
     public void areEntered(String type, String header, String description, String creator, String url, String tags, String comment, String courses) {
         testR.addLine(type);
@@ -89,16 +94,9 @@ public class DefiningSteps {
     }
 
     @Then("tip is created")
-    public void tipIsCreated() {
-<<<<<<< HEAD
-
-=======
-        System.out.println(this.tipHandler.getAllTips());
->>>>>>> 73eb4eca107b98cf4caecc11579915d23f3f52ea
-        
+    public void tipIsCreated() {        
         assertEquals(1, this.testR.tipsCreated);
     }
-
 
 }
 
@@ -133,6 +131,5 @@ class TestReader implements ReaderIO {
     }
     public void addLine(String line) {
         sentMessages.add(line);
-
     }
 }
