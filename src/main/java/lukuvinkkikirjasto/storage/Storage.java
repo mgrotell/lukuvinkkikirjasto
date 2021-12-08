@@ -130,4 +130,8 @@ public class Storage {
         }
         return tips;
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 73eb4eca107b98cf4caecc11579915d23f3f52ea
