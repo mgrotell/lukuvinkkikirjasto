@@ -11,6 +11,7 @@ import lukuvinkkikirjasto.storage.Storage;
 import lukuvinkkikirjasto.ui.TextUI;
 
 import java.util.ArrayList;
+import lukuvinkkikirjasto.main.Tip;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,8 +22,8 @@ public class DefiningSteps {
     Storage storage;
     TextUI textUi;
     TestReader testR;
+    @Before
 
-  @Before
     public void start() {
         storage = new Storage(true);
         storage.deleteTestDatabase();
@@ -32,10 +33,36 @@ public class DefiningSteps {
 
     }
 
-    @Given("User enters create to add tip")
+    @Given("user enters create to add tip")
     public void userEntersCreateToAddTip() {
         testR.addLine("2");
     }
+
+    @Given("the library has two tips in it")
+    public void theLibraryHasTwoTipsInIt() {
+        Tip firstTip = new Tip("book", "The Mythical Man-Month", "A book about software engineering",
+            "Fredrick Brooks", "none", "software engineering, classics",
+            "Classic software engineering book", "Ohjelmistotuotanto");
+
+        Tip secondTip = new Tip("blog", "The Pratical Test Pyramid", "Recommended in ohtu lecture",
+            "Martin Flower", "https://martinfowler.com/articles/practical-test-pyramid.html",
+            "Software engineering, testing", "One proposition of how to test software",
+            "Ohjelmistotuotanto");
+
+        storage.addToStorage(firstTip);
+        storage.addToStorage(secondTip);
+    }
+
+    @When("user enters 1 to list the tips")
+    public void userEnters1toListTheTips() {
+        testR.addLine("1");
+    }
+   
+    @Then("app prints a list of tips it contains")
+    public void appPrintsAListOfTipsItContains() {
+        System.out.println(testR.getConsoleMessages());
+    }
+
     @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
     public void areEntered(String type, String header, String description, String creator, String url, String tags, String comment, String courses) {
         testR.addLine(type);
@@ -56,6 +83,8 @@ public class DefiningSteps {
         
         assertEquals(1, this.testR.tipsCreated);
     }
+
+
 }
 
 class TestReader implements ReaderIO {
