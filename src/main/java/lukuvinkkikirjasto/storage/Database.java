@@ -14,13 +14,13 @@ public class Database {
         } else {
             this.databaseUrl = "jdbc:sqlite:tip.db";
         }
-        
+
     }
     public Connection getConnection() {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(this.databaseUrl);
-            
+
         } catch (SQLException e) {
             System.out.println("Getting database connection failed" + e.getMessage());
         }
@@ -30,21 +30,21 @@ public class Database {
         try {
             Statement s = db.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS tips (" +
-                "id INTEGER PRIMARY KEY," +
-                "header TEXT," +
-                "description TEXT," +
-                "creator TEXT," +
-                "url url," +
-                "tags TEXT," +
-                "type TEXT," +
-                "courses TEXT," +
-                "comment TEXT);");
+                    "id INTEGER PRIMARY KEY," +
+                    "header TEXT," +
+                    "description TEXT," +
+                    "creator TEXT," +
+                    "url url," +
+                    "tags TEXT," +
+                    "type TEXT," +
+                    "courses TEXT," +
+                    "comment TEXT);");
 
             s.close();
             db.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            
+
         }
 
     }

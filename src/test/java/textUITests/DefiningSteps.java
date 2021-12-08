@@ -50,9 +50,10 @@ public class DefiningSteps {
         textUi = new TextUI(testR, storage);
         textUi.run();
     }
+
     @Then("tip is created")
     public void tipIsCreated() {
-        System.out.println(this.storage.getStorage());
+
         
         assertEquals(1, this.testR.tipsCreated);
     }
