@@ -2,6 +2,7 @@ package lukuvinkkikirjasto.ui;
 
 import lukuvinkkikirjasto.main.ReaderIO;
 import lukuvinkkikirjasto.main.Tip;
+import lukuvinkkikirjasto.main.TipHandler;
 import lukuvinkkikirjasto.storage.Storage;
 
 
@@ -9,11 +10,11 @@ public class TextUI {
 
 
     private ReaderIO input;
-    private Storage storage;
+    private TipHandler tipHandler;
 
-    public TextUI(ReaderIO scanner, Storage storage) {
+    public TextUI(ReaderIO scanner, TipHandler tipHandler) {
         this.input = scanner;
-        this.storage = storage;
+        this.tipHandler = tipHandler;
     }
 
     public void run() {
@@ -22,19 +23,24 @@ public class TextUI {
         while (true) {
 
             this.input.println("1. List all tips.\n" +
-                    "2. Create new tip\n" +
+                    "2. Create a new tip\n" +
+                    "3. Search tips\n" +
+                    "4. Edit tips\n" +
+                    "5. Delete a tip\n" +
                     "0. Exit\n" +
-                    "expected input (1/2/0)");
+                    "expected input (1/2/3/4/5/0)");
 
             String operation = this.input.nextLine();
 
             if (operation.equals("1")) {
                 this.input.println("1");
-                for (Tip tip : storage.getStorage()) {
+                for (Tip tip : tipHandler.getAllTips()) {
                     this.input.println(tip.toString());
                 }
             } else if (operation.equals("2")) {
                 addTip();
+            } else if (operation.equals("3")) {
+                search();   // tähän uusi metodi + jatka muita komentoja
             } else if (operation.equals("0")) {
                 break;
             }
@@ -73,17 +79,12 @@ public class TextUI {
 
         String courses = this.input.nextLine();
 
-        createTip(storage, header, description, creator, url, type, tags, comment, courses);
-    }
-
-    public void createTip(Storage storage, String header, String description,
-                          String creator, String url, String type, String tags, String comment,
-                          String courses) {
-
-        Tip tiptap = new Tip(header, description, creator, url, type, tags, comment, courses);
+        this.tipHandler.createTip(header, description, creator, url, type, tags, comment, courses);
+        
         this.input.println("Tip created!");
-        storage.addToStorage(tiptap);
     }
+
+   
 
 
     public String getTipType() {
@@ -109,6 +110,39 @@ public class TextUI {
         }
 
         return type;
+    }
+
+    public void search() {
+        
+        this.input.println("1. Search by type.\n" +
+                    "2. Search by title.\n" +
+                    "3. Search by author.\n" +
+                    "expected input (1/2/3/0)");
+
+        String option = input.nextLine();
+
+        if (option.equals("1")) {
+            selectType();
+        } else if (option.equals("2")) {
+            selectTitle();
+        } else if (option.equals("3")) {
+            selectAuthor();
+        } else {
+            this.input.println("Select search option");
+            search();
+        }
+    }
+
+    public void selectType() {
+        
+    }
+
+    public void selectTitle() {
+
+    }
+
+    public void selectAuthor() {
+    
     }
 
 }
