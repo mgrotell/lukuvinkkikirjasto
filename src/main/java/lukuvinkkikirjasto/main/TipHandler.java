@@ -24,19 +24,13 @@ public class TipHandler implements TipHandlerI {
         storage.addToStorage(newTip);
     }
 
-    public ArrayList<Tip> getStorage() {
-        ArrayList<Tip> tipsList = storage.getStorage(); 
 
+    public ArrayList<Tip> getAllTips() {
         // mitä täällä tehdään riippuu siitä missä muodossa getStorage-luokka palauttaa
         // tipsit mikäli kyse on ArrayList<String>:ejä sisältävästä ArrayLististä, niin 
         // sitten täällä tapahtuisi muunnosta ArrayList<String> -> ArrayList<Tip>. 
-        // sitten tämä lista palautetaan UI:lle    
+        // sitten tämä lista palautetaan UI:lle 
 
-        // return storedTips;
-        return tipsList;
-    }
-
-    public ArrayList<Tip> getAllTips() {
         ArrayList<Tip> tipsList = storage.getStorage();
         return tipsList;
     }

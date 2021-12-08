@@ -24,7 +24,7 @@ public class DefiningSteps {
     TextUI textUi;
     TestReader testR;
 
-  @Before
+    @Before
     public void start() {
         storage = new Storage(true);
         storage.deleteTestDatabase();
@@ -39,6 +39,7 @@ public class DefiningSteps {
     public void userEntersCreateToAddTip() {
         testR.addLine("2");
     }
+
     @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
     public void areEntered(String type, String header, String description, String creator, String url, String tags, String comment, String courses) {
         testR.addLine(type);
@@ -53,9 +54,10 @@ public class DefiningSteps {
         textUi = new TextUI(testR, tipHandler);
         textUi.run();
     }
+
     @Then("tip is created")
     public void tipIsCreated() {
-        System.out.println(this.storage.getStorage());
+        System.out.println(this.tipHandler.getAllTips());
         
         assertEquals(1, this.testR.tipsCreated);
     }
@@ -86,7 +88,7 @@ class TestReader implements ReaderIO {
     }
     public void println(String line) {
         consoleMessages.add(line);
-        if( line.equals("Tip created!")) {
+        if (line.equals("Tip created!")) {
             this.tipsCreated++;
         }
     }
