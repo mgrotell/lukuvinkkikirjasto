@@ -6,5 +6,5 @@ public interface TipHandlerI {
                           String type, String tags, String comment, String courses);
     public ArrayList<Tip> getAllTips();
     public void deleteTip(String id);
-    public ArrayList<Tip> searchTips(String searchString, String searchField);
+    public String searchTipsByTerm(String searchString, String searchField);
 }
