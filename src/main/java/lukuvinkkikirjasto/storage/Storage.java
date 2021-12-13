@@ -102,12 +102,10 @@ public class Storage implements StorageI {
             return getTipsFromQuery(queryResult);
 
 
-<<<<<<< HEAD
         } catch (SQLException e) {
-=======
 
         } catch (Exception e) {
->>>>>>> 2d8e9b9de624f3b46b00c9157613324b370274b5
+
             System.out.println(e);
 
         }
@@ -138,9 +136,8 @@ public class Storage implements StorageI {
         }
         return tips;
     }
-<<<<<<< HEAD
 
-=======
+
     public void editTip(String header, String column, String newTerm) {
         try {
             Connection connection = this.db.getConnection();
@@ -166,5 +163,4 @@ public class Storage implements StorageI {
         }
     }
     
->>>>>>> 2d8e9b9de624f3b46b00c9157613324b370274b5
 }

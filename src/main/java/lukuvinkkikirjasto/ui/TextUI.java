@@ -62,7 +62,7 @@ public class TextUI {
     }
 
     public String startPrint() {
-        
+
         this.input.println("1. List all tips.\n" +
                 "2. Create a new tip\n" +
                 "3. Search tips\n" +
