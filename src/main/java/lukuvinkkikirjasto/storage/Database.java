@@ -31,7 +31,7 @@ public class Database {
             Statement s = db.createStatement();
             s.execute("CREATE TABLE IF NOT EXISTS tips (" +
                     "id INTEGER PRIMARY KEY," +
-                    "header TEXT," +
+                    "header TEXT UNIQUE," +
                     "description TEXT," +
                     "creator TEXT," +
                     "url url," +

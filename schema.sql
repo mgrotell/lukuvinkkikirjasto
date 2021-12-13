@@ -1,16 +1,10 @@
-CREATE TABLE Tips (
-    id SERIAL PRIMARY KEY,
-    header TEXT,
+CREATE TABLE IF NOT EXISTS tips (
+    id INTEGER PRIMARY KEY,
+    header TEXT UNIQUE,
     description TEXT,
     creator TEXT,
-    url TEXT,
+    url url,
     tags TEXT,
     type TEXT,
-    course_id INTEGER REFERENCES Courses ON DELETE CASCADE,
-    comment TEXT
-);
-CREATE TABLE Courses (
-    id SERIAL PRIMARY KEY,
-    name TEXT,
-    url TEXT
-);
+    courses TEXT,
+    comment TEXT);
