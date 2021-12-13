@@ -1,9 +1,11 @@
-Feature: As I user I can add a tip in the library
+Feature: As a user I can add a tip in the library
 
-
-    Scenario: User creates a tip
-      Given User enters create to add tip
+    Scenario: user creates a tip
+      Given user enters create to add tip
       When  "1", "def",  "def", "def", "def", "def", "def"  "def" are entered
-      Then tip is created
+      Then  tip is created
 
-
+    Scenario: user lists items
+      Given the library has two tips in it
+      When  user enters one to list the tips
+      Then  in the list printed by the app there are writers "Fredrick Brooks" and "Martin Fowler"

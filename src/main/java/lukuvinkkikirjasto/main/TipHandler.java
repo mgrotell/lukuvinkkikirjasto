@@ -2,23 +2,25 @@ package lukuvinkkikirjasto.main;
 
 import lukuvinkkikirjasto.main.Tip;
 import lukuvinkkikirjasto.storage.Storage;
+import lukuvinkkikirjasto.storage.StorageI;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TipHandler implements TipHandlerI {
-    private Storage storage;
+    private StorageI storage;
     private ArrayList<Tip> tipsList;
     private HashMap<String, String> tipOptions;   
 
 
-    public TipHandler(Storage storage) {
+    public TipHandler(StorageI storage) {
         this.storage = storage;
-	this.tipOptions = new HashMap<>();
+	    this.tipOptions = new HashMap<>();
         this.tipOptions.put("1", "book");
         this.tipOptions.put("2", "video");
         this.tipOptions.put("3", "podcast");
         this.tipOptions.put("4", "blog");
+        tipsList = getAllTips();
     }
 
     // createTip tänne, koska sen oleminen UI:ssä rikkoo single principle -periaatetta.
@@ -49,6 +51,11 @@ public class TipHandler implements TipHandlerI {
     }
 
     public String searchTipsByType(String column, String value) {
+
+        if(value.equals("")){
+            return "Haulla ei löytynyt tuloksia.";
+        }
+
 	String input = "";
 	ArrayList<Tip> tipsByTerm = storage.getTipsWithSearchTerm(column, tipOptions.get(value));
 	input += "\n" + tipsByTerm.size() + " tips found.\n\n";
@@ -59,6 +66,11 @@ public class TipHandler implements TipHandlerI {
     }
 
     public String searchTipsByTerm(String column, String value) {
+
+        if(value.equals("")){
+            return "Haulla ei löytynyt tuloksia.";
+        }
+
 	String input = "";
 	ArrayList<Tip> tipsByTerm = storage.getTipsWithSearchTerm(column, value);
 	input += "\n" + tipsByTerm.size() + " tips found.\n\n";
@@ -69,6 +81,11 @@ public class TipHandler implements TipHandlerI {
     }
 
     public ArrayList<Tip> getTipsByTerm(String column, String value) {
+
+        if(value.equals("")){
+            return new ArrayList<>();
+        }
+
 	ArrayList<Tip> tipsByTerm = storage.getTipsWithSearchTerm(column, value);
 	return tipsByTerm;
     }
