@@ -70,7 +70,6 @@ public class Storage implements StorageI {
             Connection connection = this.db.getConnection();
             Statement statement = connection.createStatement();
             ResultSet queryResult = statement.executeQuery("SELECT * FROM tips");
-
             return getTipsFromQuery(queryResult);
 
         } catch (SQLException e) {
@@ -88,21 +87,27 @@ public class Storage implements StorageI {
             Connection connection = this.db.getConnection();
             String sql = "";
             if (column.equals("header")) {
-                sql = "SELECT * FROM tips WHERE header=?";
+                sql = "SELECT * FROM tips WHERE header like ?";
+                System.out.println(sql);
             } else if (column.equals("creator")) {
-                sql = "SELECT * FROM tips WHERE creator=?";
+                sql = "SELECT * FROM tips WHERE creator like ?";
             } else if (column.equals("type")) {
-                sql = "SELECT * FROM tips WHERE type=?";
+                sql = "SELECT * FROM tips WHERE type like ?";
             } else if (column.equals("tags")) {
-                sql = "SELECT * FROM tips WHERE tags=?";
+                sql = "SELECT * FROM tips WHERE tags like ?";
             }
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, term);
+            statement.setString(1, "%" + term + "%");
             ResultSet queryResult = statement.executeQuery();
             return getTipsFromQuery(queryResult);
 
 
+<<<<<<< HEAD
         } catch (SQLException e) {
+=======
+
+        } catch (Exception e) {
+>>>>>>> 2d8e9b9de624f3b46b00c9157613324b370274b5
             System.out.println(e);
 
         }
@@ -133,5 +138,33 @@ public class Storage implements StorageI {
         }
         return tips;
     }
+<<<<<<< HEAD
 
+=======
+    public void editTip(String header, String column, String newTerm) {
+        try {
+            Connection connection = this.db.getConnection();
+            String sql = "";
+            if (column.equals("header")) {
+                sql = "UPDATE tips SET header = ? WHERE header = ?";
+                System.out.println(sql);
+            } else if (column.equals("creator")) {
+                sql = "UPDATE tips SET creator = ? WHERE header = ?";
+            } else if (column.equals("type")) {
+                sql = "UPDATE tips SET type = ? WHERE header = ?";
+            } else if (column.equals("tags")) {
+                sql = "UPDATE tips SET tags = ? WHERE header = ?";
+            }
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, newTerm);
+            statement.setString(2, header);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
+    }
+    
+>>>>>>> 2d8e9b9de624f3b46b00c9157613324b370274b5
 }
