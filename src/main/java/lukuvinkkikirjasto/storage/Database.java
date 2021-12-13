@@ -16,6 +16,7 @@ public class Database {
         }
 
     }
+
     public Connection getConnection() {
         Connection conn = null;
         try {
@@ -26,6 +27,7 @@ public class Database {
         }
         return conn;
     }
+
     public void createTables(Connection db) {
         try {
             Statement s = db.createStatement();
