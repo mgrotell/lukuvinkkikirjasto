@@ -18,7 +18,9 @@ public class Storage implements StorageI {
         this.tips = new ArrayList<>();
         try {
             this.db = new Database(test);
-            this.db.createTables(this.db.getConnection());
+            Connection connection = this.db.getConnection();
+            this.db.createTables(connection);
+            connection.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
