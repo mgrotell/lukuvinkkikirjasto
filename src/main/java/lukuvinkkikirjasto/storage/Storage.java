@@ -12,7 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class Storage {
+public class Storage implements StorageI {
 
 
     private ArrayList<Tip> tips;
@@ -29,6 +29,7 @@ public class Storage {
         }
     }
 
+    @Override
     public void addToStorage(Tip tip) {
         this.tips.add(tip);
         try {
@@ -52,6 +53,7 @@ public class Storage {
         }
     }
 
+    @Override
     public void deleteTestDatabase() {
         try {
             Path pathToTestDatabase = FileSystems.getDefault().getPath("test.db");
@@ -60,10 +62,12 @@ public class Storage {
             System.out.println("Test database was not deleted.");
         }
     }
+    @Override
     public void initializeTestDatabase() {
         this.db.createTables(this.db.getConnection());
     }
 
+    @Override
     public ArrayList<Tip> getStorage() {
         try {
             Connection connection = this.db.getConnection();
@@ -80,6 +84,7 @@ public class Storage {
         return new ArrayList<Tip>();
     }
 
+    @Override
     public ArrayList<Tip> getTipsWithSearchTerm(String column, String term) {
 
         try {
@@ -108,6 +113,7 @@ public class Storage {
 
         return new ArrayList<Tip>();
     }
+    @Override
     public ArrayList<Tip> getTipsFromQuery(ResultSet queryResult) {
         ArrayList<Tip> tips = new ArrayList<>();
         try {
