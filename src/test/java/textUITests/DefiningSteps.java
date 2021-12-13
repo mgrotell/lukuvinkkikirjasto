@@ -66,16 +66,18 @@ public class DefiningSteps {
    
     @Then("in the list printed by the app there are writers {string} and {string}")
     public void inTheListPrintedByTheAppThereAreWriters(String firstWriter, String secondWriter) {
+        // If this test breaks, it is possible that the cause of the failure is that
+        // the order of how the app prints the list has changed. Hence, see
+        // how appOutput looks like
+        
         ArrayList<String> appOutput = testR.getConsoleMessages();
 
-        String firstTip = appOutput.get(2);
-        String secondTip = appOutput.get(3);
+        String printedTips = appOutput.get(1);
 
-        String[] firstTipAsArray = firstTip.split("\\n");
-        String[] secondTipAsArray = secondTip.split("\\n");
+        String[] printedTipsAsArray = printedTips.split("\\n");
 
-        assertTrue(Arrays.asList(firstTipAsArray).contains("Writer: " + firstWriter));
-        assertTrue(Arrays.asList(secondTipAsArray).contains("Writer: " + secondWriter));
+        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: " + firstWriter));
+        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: " + secondWriter));
     }
 
     @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
