@@ -2,18 +2,17 @@ package textUITests;
 
 
 import io.cucumber.java.Before;
-import io.cucumber.java.bs.A;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import lukuvinkkikirjasto.main.ReaderIO;
-import lukuvinkkikirjasto.storage.Storage;
+import lukuvinkkikirjasto.main.Tip;
 import lukuvinkkikirjasto.main.TipHandler;
+import lukuvinkkikirjasto.storage.Storage;
 import lukuvinkkikirjasto.ui.TextUI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import lukuvinkkikirjasto.main.Tip;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -31,7 +30,7 @@ public class DefiningSteps {
         storage = new Storage(true);
         storage.deleteTestDatabase();
         storage.initializeTestDatabase();
-        
+
         testR = new TestReader();
         tipHandler = new TipHandler(storage);
     }
@@ -43,14 +42,14 @@ public class DefiningSteps {
 
     @Given("the library has two tips in it")
     public void theLibraryHasTwoTipsInIt() {
-        Tip firstTip = new Tip("The Mythical Man-Month", "A book about software engineering", 
-            "Fredrick Brooks", "none", "book", "software engineering, classics", 
-            "Classic software engineering book", "Ohjelmistotuotanto");
+        Tip firstTip = new Tip("The Mythical Man-Month", "A book about software engineering",
+                "Fredrick Brooks", "none", "book", "software engineering, classics",
+                "Classic software engineering book", "Ohjelmistotuotanto");
 
-        Tip secondTip = new Tip("The Pratical Test Pyramid", "Recommended in ohtu lecture",  
-            "Martin Fowler", "https://martinfowler.com/articles/practical-test-pyramid.html",
-            "blog", "software engineering, testing", "One proposition of how to test software",
-            "Ohjelmistotuotanto");
+        Tip secondTip = new Tip("The Pratical Test Pyramid", "Recommended in ohtu lecture",
+                "Martin Fowler", "https://martinfowler.com/articles/practical-test-pyramid.html",
+                "blog", "software engineering, testing", "One proposition of how to test software",
+                "Ohjelmistotuotanto");
 
         storage.addToStorage(firstTip);
         storage.addToStorage(secondTip);
@@ -63,7 +62,7 @@ public class DefiningSteps {
         textUi = new TextUI(testR, tipHandler);
         textUi.run();
     }
-   
+
     @Then("in the list printed by the app there are writers {string} and {string}")
     public void inTheListPrintedByTheAppThereAreWriters(String firstWriter, String secondWriter) {
         // If this test breaks, it is possible that the cause of the failure is that
@@ -118,7 +117,7 @@ public class DefiningSteps {
     }
 
     @Then("tip is created")
-    public void tipIsCreated() {        
+    public void tipIsCreated() {
         assertEquals(1, this.testR.tipsCreated);
     }
 

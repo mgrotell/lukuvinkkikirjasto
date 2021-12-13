@@ -1,5 +1,6 @@
 Feature: As a user I can add and list tips
 
+<<<<<<< HEAD
     Scenario: user creates a tip
       Given user enters create to add tip
       When  "1", "def", "def", "def", "def", "def", "def", "def" are entered
@@ -27,3 +28,14 @@ Feature: As a user I can add and list tips
       When  "3", "Designing Data-Intensive Applications: Partioning", "An episode about software design", "Coding blocks", "https://www.codingblocks.net/podcast/designing-data-intensive-applications-partitioning/", "software design, architecture", "miten rakentaa ohjelmia", "none" are entered
       When  user enters one to list the tips
       Then  after adding a certain type of item in the list printed by the app there is an item with the type "podcast"
+=======
+  Scenario: user creates a tip
+    Given user enters create to add tip
+    When  "1", "def",  "def", "def", "def", "def", "def"  "def" are entered
+    Then  tip is created
+
+  Scenario: user lists items
+    Given the library has two tips in it
+    When  user enters one to list the tips
+    Then  in the list printed by the app there are writers "Fredrick Brooks" and "Martin Fowler"
+>>>>>>> 8628dbab6db3ad428d9578db84d50035691870cf

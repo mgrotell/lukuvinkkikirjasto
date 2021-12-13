@@ -2,10 +2,9 @@ package lukuvinkkikirjasto;
 
 import lukuvinkkikirjasto.main.Reader;
 import lukuvinkkikirjasto.main.ReaderIO;
-import lukuvinkkikirjasto.storage.Storage;
 import lukuvinkkikirjasto.main.TipHandler;
+import lukuvinkkikirjasto.storage.Storage;
 import lukuvinkkikirjasto.ui.TextUI;
-
 
 
 public class Main {

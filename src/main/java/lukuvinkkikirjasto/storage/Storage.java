@@ -5,14 +5,10 @@ import lukuvinkkikirjasto.main.Tip;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
-public class Storage {
+public class Storage implements StorageI {
 
 
     private ArrayList<Tip> tips;
@@ -22,13 +18,16 @@ public class Storage {
         this.tips = new ArrayList<>();
         try {
             this.db = new Database(test);
-            this.db.createTables(this.db.getConnection());
+            Connection connection = this.db.getConnection();
+            this.db.createTables(connection);
+            connection.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
         }
     }
 
+    @Override
     public void addToStorage(Tip tip) {
         this.tips.add(tip);
         try {
@@ -52,6 +51,7 @@ public class Storage {
         }
     }
 
+    @Override
     public void deleteTestDatabase() {
         try {
             Path pathToTestDatabase = FileSystems.getDefault().getPath("test.db");
@@ -60,16 +60,18 @@ public class Storage {
             System.out.println("Test database was not deleted.");
         }
     }
+
+    @Override
     public void initializeTestDatabase() {
         this.db.createTables(this.db.getConnection());
     }
 
+    @Override
     public ArrayList<Tip> getStorage() {
         try {
             Connection connection = this.db.getConnection();
             Statement statement = connection.createStatement();
             ResultSet queryResult = statement.executeQuery("SELECT * FROM tips");
-
             return getTipsFromQuery(queryResult);
 
         } catch (SQLException e) {
@@ -80,34 +82,40 @@ public class Storage {
         return new ArrayList<Tip>();
     }
 
+    @Override
     public ArrayList<Tip> getTipsWithSearchTerm(String column, String term) {
 
         try {
             Connection connection = this.db.getConnection();
             String sql = "";
             if (column.equals("header")) {
-                sql = "SELECT * FROM tips WHERE header=?";
+                sql = "SELECT * FROM tips WHERE header like ?";
+                System.out.println(sql);
             } else if (column.equals("creator")) {
-                sql = "SELECT * FROM tips WHERE creator=?";
+                sql = "SELECT * FROM tips WHERE creator like ?";
             } else if (column.equals("type")) {
-                sql = "SELECT * FROM tips WHERE type=?";
+                sql = "SELECT * FROM tips WHERE type like ?";
             } else if (column.equals("tags")) {
-                sql = "SELECT * FROM tips WHERE tags=?";
+                sql = "SELECT * FROM tips WHERE tags like ?";
             }
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, term);
+            statement.setString(1, "%" + term + "%");
             ResultSet queryResult = statement.executeQuery();
             return getTipsFromQuery(queryResult);
 
 
-
         } catch (SQLException e) {
+
+        } catch (Exception e) {
+
             System.out.println(e);
 
         }
 
         return new ArrayList<Tip>();
     }
+
+    @Override
     public ArrayList<Tip> getTipsFromQuery(ResultSet queryResult) {
         ArrayList<Tip> tips = new ArrayList<>();
         try {
@@ -130,5 +138,44 @@ public class Storage {
         }
         return tips;
     }
+
+
+    public void editTip(String header, String column, String newTerm) {
+        try {
+            Connection connection = this.db.getConnection();
+            String sql = "";
+            if (column.equals("header")) {
+                sql = "UPDATE tips SET header = ? WHERE header = ?";
+                System.out.println(sql);
+            } else if (column.equals("creator")) {
+                sql = "UPDATE tips SET creator = ? WHERE header = ?";
+            } else if (column.equals("type")) {
+                sql = "UPDATE tips SET type = ? WHERE header = ?";
+            } else if (column.equals("tags")) {
+                sql = "UPDATE tips SET tags = ? WHERE header = ?";
+            }
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, newTerm);
+            statement.setString(2, header);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
+    }
+    public void deleteTip(String header) {
+        try {
+            Connection connection = this.db.getConnection();
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM tips WHERE header = ?");
+            statement.setString(1, header);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
+    }
+
     
 }
