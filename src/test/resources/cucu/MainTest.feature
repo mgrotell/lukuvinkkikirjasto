@@ -8,4 +8,4 @@ Feature: As a user I can add a tip in the library
     Scenario: user lists items
       Given the library has two tips in it
       When  user enters one to list the tips
-      Then  app lists the tips it has stored
+      Then  in the list printed by the app there are writers "Fredrick Brooks" and "Martin Fowler"

@@ -64,8 +64,8 @@ public class DefiningSteps {
         textUi.run();
     }
    
-    @Then("app lists the tips it has stored")
-    public void appListsTheTipsItHasStored() {
+    @Then("in the list printed by the app there are writers {string} and {string}")
+    public void inTheListPrintedByTheAppThereAreWriters(String firstWriter, String secondWriter) {
         ArrayList<String> appOutput = testR.getConsoleMessages();
 
         String firstTip = appOutput.get(2);
@@ -74,8 +74,8 @@ public class DefiningSteps {
         String[] firstTipAsArray = firstTip.split("\\n");
         String[] secondTipAsArray = secondTip.split("\\n");
 
-        assertTrue(Arrays.asList(firstTipAsArray).contains("Writer: Fredrick Brooks"));
-        assertTrue(Arrays.asList(secondTipAsArray).contains("Writer: Martin Fowler"));
+        assertTrue(Arrays.asList(firstTipAsArray).contains("Writer: " + firstWriter));
+        assertTrue(Arrays.asList(secondTipAsArray).contains("Writer: " + secondWriter));
     }
 
     @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
