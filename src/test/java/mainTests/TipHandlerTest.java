@@ -1,16 +1,11 @@
 package mainTests;
 
 
-import io.cucumber.java.BeforeAll;
-import jdk.swing.interop.SwingInterOpUtils;
 import lukuvinkkikirjasto.main.Tip;
 import lukuvinkkikirjasto.main.TipHandler;
 import lukuvinkkikirjasto.main.TipHandlerI;
-import lukuvinkkikirjasto.storage.Storage;
 import lukuvinkkikirjasto.storage.StorageI;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.sql.ResultSet;
@@ -18,7 +13,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class TipHandlerTest {
 
@@ -28,7 +23,7 @@ public class TipHandlerTest {
 
 
     @Before
-    public void initialize(){
+    public void initialize() {
 
 
         storage = new StorageForTest();
@@ -41,24 +36,23 @@ public class TipHandlerTest {
     }
 
     @Test
-    public void tipsLoadedWithRightNumber(){
+    public void tipsLoadedWithRightNumber() {
 
-        assertEquals(20,storage.getStorage().size());
+        assertEquals(20, storage.getStorage().size());
 
     }
 
     class StorageForTest implements StorageI {
 
+        private final ArrayList<Tip> tips = new ArrayList<>();
         private ArrayList<String> words;
         private HashMap<String, String> tipOptions;
-        private ArrayList<Tip> tips = new ArrayList<>();
-
 
         @Override
         public void addToStorage(Tip tip) {
 
 
-                tips.add(tip);
+            tips.add(tip);
 
         }
 
@@ -92,7 +86,7 @@ public class TipHandlerTest {
 
             Random randomWord = new Random();
 
-            for (int i = 0; i <20 ; i++) {
+            for (int i = 0; i < 20; i++) {
 
                 Tip tipN = new Tip(words.get(randomWord.nextInt(11)),
                         words.get(randomWord.nextInt(11)),
@@ -124,7 +118,6 @@ public class TipHandlerTest {
             return null;
         }
     }
-
 
 
 }

@@ -5,11 +5,7 @@ import lukuvinkkikirjasto.main.Tip;
 import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class Storage implements StorageI {
@@ -22,7 +18,9 @@ public class Storage implements StorageI {
         this.tips = new ArrayList<>();
         try {
             this.db = new Database(test);
-            this.db.createTables(this.db.getConnection());
+            Connection connection = this.db.getConnection();
+            this.db.createTables(connection);
+            connection.close();
         } catch (Exception e) {
             System.out.println(e.getMessage());
 
@@ -62,6 +60,7 @@ public class Storage implements StorageI {
             System.out.println("Test database was not deleted.");
         }
     }
+
     @Override
     public void initializeTestDatabase() {
         this.db.createTables(this.db.getConnection());
@@ -105,14 +104,17 @@ public class Storage implements StorageI {
             return getTipsFromQuery(queryResult);
 
 
+        } catch (SQLException e) {
 
         } catch (Exception e) {
+
             System.out.println(e);
 
         }
 
         return new ArrayList<Tip>();
     }
+
     @Override
     public ArrayList<Tip> getTipsFromQuery(ResultSet queryResult) {
         ArrayList<Tip> tips = new ArrayList<>();
@@ -136,6 +138,8 @@ public class Storage implements StorageI {
         }
         return tips;
     }
+
+
     public void editTip(String header, String column, String newTerm) {
         try {
             Connection connection = this.db.getConnection();

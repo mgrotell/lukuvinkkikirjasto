@@ -15,7 +15,7 @@ public class DatabaseTest {
     private Database testDatabase;
 
     @Before
-    public void Initialize(){
+    public void Initialize() {
         testDatabase = new Database(true);
     }
 
@@ -29,6 +29,7 @@ public class DatabaseTest {
             System.out.println("virhe");
         }
     }
+
     @Test
     public void testConnectionCreatesNewDatabaseFile() {
         File myObj = new File("test.db");
