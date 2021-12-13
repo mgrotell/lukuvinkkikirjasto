@@ -94,12 +94,7 @@ public class DefiningSteps {
     }
 
     @Then("tip is created")
-<<<<<<< HEAD
     public void tipIsCreated() {        
-=======
-    public void tipIsCreated() {
-        System.out.println(this.tipHandler.getAllTips());
->>>>>>> 9a11e96fc06f08caac4117f32d4bea0450858d6d
         assertEquals(1, this.testR.tipsCreated);
     }
 
