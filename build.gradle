@@ -57,6 +57,6 @@ tasks.withType(Checkstyle) {
     }
 }
 
-run  {
+run {
     standardInput = System.in
 }

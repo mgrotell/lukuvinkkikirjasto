@@ -1,14 +1,11 @@
 package storageTests;
 
-import io.cucumber.java.BeforeAll;
-import jdk.swing.interop.SwingInterOpUtils;
 import lukuvinkkikirjasto.main.Tip;
 import lukuvinkkikirjasto.storage.Storage;
-import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import static org.junit.Assert.assertEquals;
 
 public class StorageTest {
 
@@ -19,7 +16,7 @@ public class StorageTest {
 
 
     @Before
-    public void Initialize(){
+    public void Initialize() {
         testStora = new Storage(true);
         testStora.deleteTestDatabase();
         testStora.initializeTestDatabase();
@@ -29,10 +26,10 @@ public class StorageTest {
 
 
     @Test
-    public void addOneToStorage(){
+    public void addOneToStorage() {
 
         Tip tipOne = new Tip("Help", "Us", "Hesus",
-                "heaven", "Book", "satanic","meh", "muumi");
+                "heaven", "Book", "satanic", "meh", "muumi");
 
         compareValueAddedTips++;
         testStora.addToStorage(tipOne);
@@ -42,36 +39,34 @@ public class StorageTest {
     }
 
 
+    @Test
+    public void addTwoAlmostSameToStorage() {
+
+        Tip tipOne = new Tip("Help", "Us", "Hesus",
+                "heaven", "Book", "satanic", "meh", "muumi");
+        compareValueAddedTips++;
+
+        Tip tipTwo = new Tip("Help", "Us", "Hesus",
+                "heaven", "Book", "satanic", "meh", "Narnia");
+        compareValueAddedTips++;
+
+        testStora.addToStorage(tipOne);
+        testStora.addToStorage(tipTwo);
+
+        assertEquals(compareValueAddedTips, testStora.getStorage().size());
+
+    }
+
 
     @Test
-    public void addTwoAlmostSameToStorage(){
+    public void addTwoSameToStorage() {
 
         Tip tipOne = new Tip("Help", "Us", "Hesus",
-                "heaven", "Book", "satanic","meh", "muumi");
+                "heaven", "Book", "satanic", "meh", "muumi");
         compareValueAddedTips++;
-
         Tip tipTwo = new Tip("Help", "Us", "Hesus",
-                "heaven", "Book", "satanic","meh", "Narnia");
+                "heaven", "Book", "satanic", "meh", "muumi");
         compareValueAddedTips++;
-
-        testStora.addToStorage(tipOne);
-        testStora.addToStorage(tipTwo);
-
-        assertEquals(compareValueAddedTips, testStora.getStorage().size());
-
-    }
-
-
-
-  @Test
-    public void addTwoSameToStorage(){
-
-        Tip tipOne = new Tip("Help", "Us", "Hesus",
-                "heaven", "Book", "satanic","meh", "muumi");
-      compareValueAddedTips++;
-        Tip tipTwo = new Tip("Help", "Us", "Hesus",
-                "heaven", "Book", "satanic","meh", "muumi");
-      compareValueAddedTips++;
         testStora.addToStorage(tipOne);
 
         testStora.addToStorage(tipTwo);
@@ -79,14 +74,6 @@ public class StorageTest {
         assertEquals(compareValueAddedTips, testStora.getStorage().size());
 
     }
-
-
-
-
-
-
-
-
 
 
 }

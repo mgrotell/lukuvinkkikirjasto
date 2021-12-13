@@ -26,33 +26,40 @@ public class Tip implements TipI {
     public String getHeader() {
         return this.header;
     }
+
     public String getDescription() {
         return this.description;
     }
+
     public String getCreator() {
         return this.creator;
     }
+
     public String getUrl() {
         return this.url;
     }
+
     public String getType() {
         return this.type;
     }
+
     public String getTags() {
         return this.tags;
     }
+
     public String getComment() {
         return this.comment;
     }
+
     public String getCourses() {
         return this.courses;
     }
-    
+
     @Override
     public String toString() {
         return "Header: " + this.header + "\nWriter: " + this.creator + "\nDescription: " +
-            this.description + "\nURL: " + this.url + "\nType: " + this.type +
-            "\nTags: " + this.tags + "\nComments: " + this.comment + "\nRelated courses: " + this.courses + "\n\n";
+                this.description + "\nURL: " + this.url + "\nType: " + this.type +
+                "\nTags: " + this.tags + "\nComments: " + this.comment + "\nRelated courses: " + this.courses + "\n\n";
     }
 
 
