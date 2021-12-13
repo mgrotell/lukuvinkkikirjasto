@@ -12,6 +12,8 @@ import lukuvinkkikirjasto.main.TipHandler;
 import lukuvinkkikirjasto.ui.TextUI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import lukuvinkkikirjasto.main.Tip;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -34,9 +36,46 @@ public class DefiningSteps {
         tipHandler = new TipHandler(storage);
     }
 
-    @Given("User enters create to add tip")
+    @Given("user enters create to add tip")
     public void userEntersCreateToAddTip() {
         testR.addLine("2");
+    }
+
+    @Given("the library has two tips in it")
+    public void theLibraryHasTwoTipsInIt() {
+        Tip firstTip = new Tip("The Mythical Man-Month", "A book about software engineering", 
+            "Fredrick Brooks", "none", "book", "software engineering, classics", 
+            "Classic software engineering book", "Ohjelmistotuotanto");
+
+        Tip secondTip = new Tip("The Pratical Test Pyramid", "Recommended in ohtu lecture",  
+            "Martin Fowler", "https://martinfowler.com/articles/practical-test-pyramid.html",
+            "blog", "software engineering, testing", "One proposition of how to test software",
+            "Ohjelmistotuotanto");
+
+        storage.addToStorage(firstTip);
+        storage.addToStorage(secondTip);
+    }
+
+    @When("user enters one to list the tips")
+    public void userEntersOnetoListTheTips() {
+        testR.addLine("1");
+        testR.addLine("0");
+        textUi = new TextUI(testR, tipHandler);
+        textUi.run();
+    }
+   
+    @Then("in the list printed by the app there are writers {string} and {string}")
+    public void inTheListPrintedByTheAppThereAreWriters(String firstWriter, String secondWriter) {
+        ArrayList<String> appOutput = testR.getConsoleMessages();
+
+        String firstTip = appOutput.get(2);
+        String secondTip = appOutput.get(3);
+
+        String[] firstTipAsArray = firstTip.split("\\n");
+        String[] secondTipAsArray = secondTip.split("\\n");
+
+        assertTrue(Arrays.asList(firstTipAsArray).contains("Writer: " + firstWriter));
+        assertTrue(Arrays.asList(secondTipAsArray).contains("Writer: " + secondWriter));
     }
 
     @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
@@ -55,10 +94,10 @@ public class DefiningSteps {
     }
 
     @Then("tip is created")
-    public void tipIsCreated() {
-        System.out.println(this.tipHandler.getAllTips());
+    public void tipIsCreated() {        
         assertEquals(1, this.testR.tipsCreated);
     }
+
 }
 
 class TestReader implements ReaderIO {
@@ -96,6 +135,5 @@ class TestReader implements ReaderIO {
 
     public void addLine(String line) {
         sentMessages.add(line);
-
     }
 }

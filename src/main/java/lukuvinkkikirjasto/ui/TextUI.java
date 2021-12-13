@@ -18,12 +18,12 @@ public class TextUI {
     private Map<String, String> linesToEdit;
 
     public TextUI(ReaderIO scanner, TipHandler tipHandler) {
-        this.input = scanner;
+	this.input = scanner;
         this.tipHandler = tipHandler;
         this.tipOptions = new HashMap<>();
         this.tipOptions.put("1", "book");
 	this.tipOptions.put("2", "video");
-	this.tipOptions.put("3", "podcast");
+        this.tipOptions.put("3", "podcast");
 	this.tipOptions.put("4", "blog");
 	this.linesToEdit = new HashMap<>();
 	this.linesToEdit.put("1", "header");
@@ -200,8 +200,10 @@ public class TextUI {
 	    if (tips.isEmpty()) {
   		this.input.println("\n" + tips.size() + " tips found.\n\n");
 	    }
+	    int i = 0;
 	    for (Tip tip : tips) {
-		this.input.println(tip.toString());
+		i++;
+		this.input.println("\n" + i + ".\n" + tip.toString());
 		this.input.println("Edit? (y/n)");
 		String answer = input.nextLine();
 		if (answer.equals("y")) {
@@ -215,7 +217,7 @@ public class TextUI {
 				"7. ...comments?\n" +
 				"8. ...related courses?\n");
 		    String editLine = input.nextLine();	
-		    
+		     
 		    
 		} else if (answer.equals("n")) {
 		    break;
