@@ -4,13 +4,21 @@ import lukuvinkkikirjasto.main.Tip;
 import lukuvinkkikirjasto.storage.Storage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TipHandler implements TipHandlerI {
     private Storage storage;
     private ArrayList<Tip> tipsList;
+    private HashMap<String, String> tipOptions;   
+
 
     public TipHandler(Storage storage) {
         this.storage = storage;
+	this.tipOptions = new HashMap<>();
+        this.tipOptions.put("1", "book");
+        this.tipOptions.put("2", "video");
+        this.tipOptions.put("3", "podcast");
+        this.tipOptions.put("4", "blog");
     }
 
     // createTip tänne, koska sen oleminen UI:ssä rikkoo single principle -periaatetta.
@@ -26,26 +34,52 @@ public class TipHandler implements TipHandlerI {
 
 
     public ArrayList<Tip> getAllTips() {
-        // mitä täällä tehdään riippuu siitä missä muodossa getStorage-luokka palauttaa
-        // tipsit mikäli kyse on ArrayList<String>:ejä sisältävästä ArrayLististä, niin 
-        // sitten täällä tapahtuisi muunnosta ArrayList<String> -> ArrayList<Tip>. 
-        // sitten tämä lista palautetaan UI:lle 
-
         ArrayList<Tip> tipsList = storage.getStorage();
         return tipsList;
     }
+
+    public String listAllTips() {
+	String input = "";
+	ArrayList<Tip> tipsList = storage.getStorage();
+	input += "\n" + tipsList.size() + " tips found.\n\n";
+        for (Tip tip : tipsList) {
+    	    input += tip.toString();
+	}
+	return input;
+    }
+
+    public String searchTipsByType(String column, String value) {
+	String input = "";
+	ArrayList<Tip> tipsByTerm = storage.getTipsWithSearchTerm(column, tipOptions.get(value));
+	input += "\n" + tipsByTerm.size() + " tips found.\n\n";
+	for (Tip tip : tipsByTerm) {
+	    input += tip.toString();
+	}
+	return input;
+    }
+
+    public String searchTipsByTerm(String column, String value) {
+	String input = "";
+	ArrayList<Tip> tipsByTerm = storage.getTipsWithSearchTerm(column, value);
+	input += "\n" + tipsByTerm.size() + " tips found.\n\n";
+	for (Tip tip : tipsByTerm) {
+	    input += tip.toString();
+	}
+	return input;
+    }
+
+    public ArrayList<Tip> getTipsByTerm(String column, String value) {
+	ArrayList<Tip> tipsByTerm = storage.getTipsWithSearchTerm(column, value);
+	return tipsByTerm;
+    }
+
+    
+
+
 
     public void deleteTip(String id) {
         // storage.deleteTip(id);
     }
 
-    public ArrayList<Tip> searchTips(String searchString, String searchField) {
-        // tipsList = storage.search(seachString, searchField);
-
-        // samoin kuin getStoredTips-metodin kanssa. mitä täällä tehdään riippuu
-        // siitä missä muodossa storage palauttaa löydetyt tipit
-
-        // return foundTips;
-        return null;
-    }
+   
 }

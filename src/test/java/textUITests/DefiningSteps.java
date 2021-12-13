@@ -94,7 +94,12 @@ public class DefiningSteps {
     }
 
     @Then("tip is created")
+<<<<<<< HEAD
     public void tipIsCreated() {        
+=======
+    public void tipIsCreated() {
+        System.out.println(this.tipHandler.getAllTips());
+>>>>>>> 9a11e96fc06f08caac4117f32d4bea0450858d6d
         assertEquals(1, this.testR.tipsCreated);
     }
 
@@ -117,18 +122,22 @@ class TestReader implements ReaderIO {
     public String nextLine() {
         return sentMessages.get(currentMessage++);
     }
-    public ArrayList<String> getConsoleMessages(){
+
+    public ArrayList<String> getConsoleMessages() {
         return this.consoleMessages;
     }
+
     public int getTipsCreated() {
         return this.tipsCreated;
     }
+
     public void println(String line) {
         consoleMessages.add(line);
         if (line.equals("Tip created!")) {
             this.tipsCreated++;
         }
     }
+
     public void addLine(String line) {
         sentMessages.add(line);
     }
