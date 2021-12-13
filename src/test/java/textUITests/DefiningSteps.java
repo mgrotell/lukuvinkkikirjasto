@@ -80,7 +80,29 @@ public class DefiningSteps {
         assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: " + secondWriter));
     }
 
-    @When("{string}, {string},  {string}, {string}, {string}, {string}, {string}  {string} are entered")
+    @Then("in the list printed by the app there is an item with the type {string} and writer {string}")
+    public void inTheListPrintedByTheAppThereIsAnItemWithTheTypeAndWriter(String typeOfItem, String writer) {
+        ArrayList<String> appOutput = testR.getConsoleMessages();
+
+        String printedTips = appOutput.get(1);
+
+        String[] printedTipsAsArray = printedTips.split("\\n");
+
+        assertTrue(Arrays.asList(printedTipsAsArray).contains("Type: " + typeOfItem));
+        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: " + writer));
+    }
+
+    @Then("after adding a certain type of item in the list printed by the app there is an item with the type {string}")
+    public void afterAddingACertainTypeOfItemInTheListPrintedByTheAppThereIsAnItemWithTheTypeAndWriter(String typeOfItem) {
+        ArrayList<String> appOutput = testR.getConsoleMessages();
+
+        String printedTips = appOutput.get(12);
+        String[] printedTipsAsArray = printedTips.split("\\n");
+
+        assertTrue(Arrays.asList(printedTipsAsArray).contains("Type: " + typeOfItem));
+    }
+
+    @When("{string}, {string}, {string}, {string}, {string}, {string}, {string}, {string} are entered")
     public void areEntered(String type, String header, String description, String creator, String url, String tags, String comment, String courses) {
         testR.addLine(type);
         testR.addLine(header);
