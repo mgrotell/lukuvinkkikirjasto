@@ -7,6 +7,7 @@
 [Definition of done](https://github.com/msiivone/lukuvinkkikirjasto/blob/main/dokumentaatio/definitionofdone.md)
 
 
+
 ## Ohjelman suoritus ohjeet
 Ohjelma on testattu ja todettu toimivaksi Gradlen 7.2 versiolla.
 1. Siirry komentorivillä projektin juureen.
