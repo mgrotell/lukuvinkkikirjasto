@@ -164,5 +164,18 @@ public class Storage implements StorageI {
 
         }
     }
+    public void deleteTip(String header) {
+        try {
+            Connection connection = this.db.getConnection();
+            PreparedStatement statement = connection.prepareStatement("DELETE FROM tips WHERE header = ?");
+            statement.setString(1, header);
+            statement.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+
+        }
+    }
+
     
 }
