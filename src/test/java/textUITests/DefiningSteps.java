@@ -16,6 +16,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 
 public class DefiningSteps {
@@ -58,6 +59,24 @@ public class DefiningSteps {
     @When("user enters one to list the tips")
     public void userEntersOnetoListTheTips() {
         testR.addLine("1");
+        testR.addLine("0");
+        textUi = new TextUI(testR, tipHandler);
+        textUi.run();
+    }
+
+    @When("user chooses searchs tips")
+    public void userChoosesSearchTips() {
+        testR.addLine("3");
+    }
+
+    @When("user chooses search by author")
+    public void userChoosesSearchByAuthor() {
+        testR.addLine("3");
+    }
+
+    @When("user enters search term {string}")
+    public void userEntersSearchTerm(String userInput) {
+        testR.addLine(userInput);
         testR.addLine("0");
         textUi = new TextUI(testR, tipHandler);
         textUi.run();
@@ -114,6 +133,18 @@ public class DefiningSteps {
         testR.addLine("0");
         textUi = new TextUI(testR, tipHandler);
         textUi.run();
+    }
+
+    @Then("the app returns a list with items that have Martin Fowler as the writer and no entries by Fredrick Brooks")
+    public void theAppReturnsAListWithItemsThatHaveMartinFowlerAsTheWriterAndNoEntriesByFredrickBrooks() {
+        ArrayList<String> appOutput = testR.getConsoleMessages();
+
+        String printedTips = appOutput.get(4);
+
+        String[] printedTipsAsArray = printedTips.split("\\n");
+
+        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: Martin Fowler"));
+        assertFalse(Arrays.asList(printedTipsAsArray).contains("Writer: Martin Fowler"));    
     }
 
     @Then("tip is created")
