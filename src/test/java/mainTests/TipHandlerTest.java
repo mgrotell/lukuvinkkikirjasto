@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TipHandlerTest {
 
@@ -29,7 +30,6 @@ public class TipHandlerTest {
         storage = new StorageForTest();
         storage.initializeTestDatabase();
 
-
         tipH = new TipHandler(storage);
 
 
@@ -38,13 +38,38 @@ public class TipHandlerTest {
     @Test
     public void tipsLoadedWithRightNumber() {
 
-        assertEquals(20, storage.getStorage().size());
+        assertEquals(20, tipH.getAllTips().size());
 
     }
 
+    @Test
+    public void addOneList(){
+        tipH.createTip("Ada", "Lovelace",
+                "Isaac","Asimov", "Book","RickROll",
+                "Mormoni","Lama");
+
+        assertEquals(21,tipH.getAllTips().size());
+
+    }
+    @Test
+    public void addOneListFoundByHeader(){
+        tipH.createTip("Ada", "Lovelace",
+                "Isaac","Asimov", "book","RickROll",
+                "Mormoni","Lama");
+
+
+        System.out.println(tipH.getAllTips());
+
+        assertTrue(tipH.searchTipsByType("book","Ada").contains("Ada"));
+        assertTrue(tipH.searchTipsByType("book","Ada").contains("book"));
+
+    }
+
+
     class StorageForTest implements StorageI {
 
-        private final ArrayList<Tip> tips = new ArrayList<>();
+
+        private  ArrayList<Tip> tips = new ArrayList<>();
         private ArrayList<String> words;
         private HashMap<String, String> tipOptions;
 
@@ -88,11 +113,13 @@ public class TipHandlerTest {
 
             for (int i = 0; i < 20; i++) {
 
+                String type = ""+ randomWord.nextInt(5);
+
                 Tip tipN = new Tip(words.get(randomWord.nextInt(11)),
                         words.get(randomWord.nextInt(11)),
                         words.get(randomWord.nextInt(11)),
                         words.get(randomWord.nextInt(11)),
-                        words.get(randomWord.nextInt(11)),
+                        tipOptions.get(type),
                         words.get(randomWord.nextInt(11)),
                         words.get(randomWord.nextInt(11)),
                         words.get(randomWord.nextInt(11)));
@@ -110,7 +137,15 @@ public class TipHandlerTest {
 
         @Override
         public ArrayList<Tip> getTipsWithSearchTerm(String column, String term) {
-            return null;
+
+            ArrayList<Tip> tipOne = new ArrayList();
+                for(Tip tip:tips){
+                    if(tip.getHeader().contains(term) && tip.getType().equals(column)) {
+                        tipOne.add(tip);
+                    }
+                }
+
+            return  tipOne;
         }
 
         @Override
