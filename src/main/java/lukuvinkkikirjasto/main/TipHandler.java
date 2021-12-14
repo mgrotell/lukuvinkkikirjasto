@@ -21,10 +21,6 @@ public class TipHandler implements TipHandlerI {
         tipsList = getAllTips();
     }
 
-    // createTip tänne, koska sen oleminen UI:ssä rikkoo single principle -periaatetta.
-    // myöskin UI:n vaihtaminen esimerkiksi JavaFX:ksi onnistuu helpommin, jos 
-    // UI-olio kutsuu ainoastaan handleria
-
     public void createTip(String header, String description, String creator, String url,
                           String type, String tags, String comment, String courses) {
 

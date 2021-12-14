@@ -140,15 +140,7 @@ public class TipHandlerTest {
         public void deleteTestDatabase() {
 
         }
-
-        @Override
-        public void initializeTestDatabase() {
-            this.tipOptions = new HashMap<>();
-            this.tipOptions.put("1", "book");
-            this.tipOptions.put("2", "video");
-            this.tipOptions.put("3", "podcast");
-            this.tipOptions.put("4", "blog");
-            this.tipOptions.put("5", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley");
+        public ArrayList<String> wordsList() {
             words = new ArrayList<>();
 
             words.add("Kaapon");
@@ -163,7 +155,17 @@ public class TipHandlerTest {
             words.add("LaMan paluu");
             words.add("LaMa");
             words.add("JoLo");
-
+            return words;
+        }
+        @Override
+        public void initializeTestDatabase() {
+            this.tipOptions = new HashMap<>();
+            this.tipOptions.put("1", "book");
+            this.tipOptions.put("2", "video");
+            this.tipOptions.put("3", "podcast");
+            this.tipOptions.put("4", "blog");
+            this.tipOptions.put("5", "https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley");
+            ArrayList<String> words = this.wordsList();
             Random randomWord = new Random();
 
             for (int i = 0; i < 20; i++) {
@@ -181,8 +183,6 @@ public class TipHandlerTest {
 
                 tips.add(tipN);
             }
-
-
         }
 
         @Override
@@ -200,9 +200,7 @@ public class TipHandlerTest {
                         tipOne.add(tip);
                     }
                 }
-
             } else {
-
                 for (Tip tip : tips) {
                     if (tip.getType().contains(term)) {
                         tipOne.add(tip);
@@ -211,7 +209,6 @@ public class TipHandlerTest {
             }
             return tipOne;
         }
-
         @Override
         public ArrayList<Tip> getTipsFromQuery(ResultSet queryResult) {
             return null;
