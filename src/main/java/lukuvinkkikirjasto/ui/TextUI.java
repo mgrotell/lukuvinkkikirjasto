@@ -111,7 +111,7 @@ public class TextUI {
                 "3. Podcast \n" +
                 "4. Blog \n");
 
-        String type = input.nextLine();
+        String type = this.input.nextLine();
 
 
         if (type.equals("1")) {
@@ -136,7 +136,7 @@ public class TextUI {
 		            "4. Search by tag(s).\n" +
                     "expected input (1/2/3/4/0)");
 
-        String option = input.nextLine();
+        String option = this.input.nextLine();
 
         if (option.equals("1")) {
             selectType();
@@ -160,26 +160,26 @@ public class TextUI {
                     "4. Blog\n" +
                     "expected input (1/2/3/4/0)");
 
-        String typeNumber = input.nextLine();
+        String typeNumber = this.input.nextLine();
 	
         this.input.println(tipHandler.searchTipsByType("type", typeNumber));     
     }
 
     private void selectTitle() {
         this.input.println("Give the title:");
-        String titleName = input.nextLine();
+        String titleName = this.input.nextLine();
         this.input.println(tipHandler.searchTipsByTerm("header", titleName));
     }
 
     private void selectAuthor() {
         this.input.println("Give the name of the author:");
-        String author = input.nextLine();
+        String author = this.input.nextLine();
         this.input.println(tipHandler.searchTipsByTerm("creator", author));
     }
 
     private void selectTags() {
         this.input.println("Give a tag or tags separated by ',':");
-        String tag = input.nextLine();
+        String tag = this.input.nextLine();
         this.input.println(tipHandler.searchTipsByTerm("tags", tag));
     }
 
@@ -189,11 +189,11 @@ public class TextUI {
 		    "1. Select by title\n" +
 		    "2. Select by author\n"); 
 
-	    String option = input.nextLine();
+	    String option = this.input.nextLine();
 	
         if (option.equals("1")) {
             this.input.println("Give the title:");
-            String titleName = input.nextLine();
+            String titleName = this.input.nextLine();
             ArrayList<Tip> tips = tipHandler.getTipsByTerm("header", titleName);
             this.input.println("\n" + tips.size() + " tips found.\n\n");
             
@@ -202,7 +202,14 @@ public class TextUI {
             
 
         } else if (option.equals("2")) {
-            selectAuthor();
+            this.input.println("Give the name of the author:");
+            String author = this.input.nextLine();
+            ArrayList<Tip> tips = tipHandler.getTipsByTerm("creator", author);
+            this.input.println("\n" + tips.size() + " tips found.\n\n");
+
+            int counter = 0;
+            printSearchResults(tips, counter);
+            
         } else {
             editTips();
         }
@@ -220,7 +227,7 @@ public class TextUI {
             }          
         }
         input.println("Select the number of the tip to be edited:");
-        String answer = input.nextLine();
+        String answer = this.input.nextLine();
         if (answer.equals("m")) {
             counter += 3;
             printSearchResults(tips, counter);
@@ -242,11 +249,14 @@ public class TextUI {
                     "6. ...tags?\n" +
                     "7. ...comments?\n" +
                     "8. ...related courses?\n");
-        String editLine = input.nextLine();  //numero
+        String editLine = this.input.nextLine();  //numero
         String column = linesToEdit.get(editLine);   //numeroon liittyvä kenttä
         input.println("Insert new " + column + ":");
-        String newTerm = input.nextLine();
-	    tipHandler.editTip(tip.getHeader(), column, newTerm);   		    
+        String newTerm = this.input.nextLine();
+        if (newTerm != null) {
+            tipHandler.editTip(tip.getHeader(), column, newTerm);
+        }
+	       		    
     }
 
     private void deleteTips() {
