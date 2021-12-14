@@ -12,5 +12,4 @@ public interface TipHandlerI {
 
     public String searchTipsByTerm(String searchString, String searchField);
 
-    public String searchTipsByType(String column, String value);
 }

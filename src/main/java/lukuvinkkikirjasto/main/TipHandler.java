@@ -88,6 +88,11 @@ public class TipHandler implements TipHandlerI {
         return tipsByTerm;
     }
 
+    public void editTip(String header, String column, String newTerm) {
+        
+        storage.editTip(header, column, newTerm);
+    }
+
 
     public void deleteTip(String id) {
         // storage.deleteTip(id);
