@@ -2,8 +2,6 @@
 
 [Product backlog](https://docs.google.com/spreadsheets/d/12AyWmIQBzrVbD5ydoa-WGuoNIj_iCAdB56etHmK6v4w/edit#gid=1)
 
-[(Vanha Product backlog)](https://github.com/msiivone/lukuvinkkikirjasto/projects/1)
-
 [Definition of done](https://github.com/msiivone/lukuvinkkikirjasto/blob/main/dokumentaatio/definitionofdone.md)
 
 [Loppuraportti](https://docs.google.com/document/d/1JsrWrYCFOLRgruDYP0OWP8xox_sqBnue4UOiK3Vnhhk/edit?usp=sharing)
