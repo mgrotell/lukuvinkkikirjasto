@@ -12,11 +12,8 @@ import lukuvinkkikirjasto.storage.Storage;
 import lukuvinkkikirjasto.ui.TextUI;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.*;
 
 
 public class DefiningSteps {
@@ -98,9 +95,9 @@ public class DefiningSteps {
     }
 
     @Then("printed list has items by {string} and {string}")
-    public void printedListHasItemsBy(String firstWriter, String secondWriter) {        
+    public void printedListHasItemsBy(String firstWriter, String secondWriter) {
         ArrayList<String> appOutput = testR.getConsoleMessages();
-        
+
         ArrayList<String> consoleMessages = outputToUnifiedArrayList(appOutput);
 
         assertTrue(consoleMessages.contains("Writer: " + firstWriter));
@@ -113,7 +110,15 @@ public class DefiningSteps {
 
         ArrayList<String> consoleMessages = outputToUnifiedArrayList(appOutput);
 
-        assertTrue(consoleMessages.contains("Type: " + typeOfItem));
+        boolean found = false;
+        for(String created:consoleMessages){
+
+            if(created.contains(typeOfItem)){
+                found = true;
+            }
+
+        }
+        assertTrue(found);
     }
 
     @Then("prints out a list with items by {string} and no entries by {string}")
@@ -123,17 +128,17 @@ public class DefiningSteps {
         ArrayList<String> consoleMessages = outputToUnifiedArrayList(appOutput);
 
         assertTrue(consoleMessages.contains("Writer: " + firstAuthor));
-        assertFalse(consoleMessages.contains("Writer: " + secondAuthor));    
+        assertFalse(consoleMessages.contains("Writer: " + secondAuthor));
     }
 
     @Then("tip is created")
     public void tipIsCreated() {
-        assertEquals(1, this.testR.tipsCreated);
+        assertEquals(1, this.tipHandler.getAllTips().size());
     }
 
     private ArrayList<String> outputToUnifiedArrayList(ArrayList<String> messages) {
         ArrayList<String> consoleMessagesAsIndividualStrings = new ArrayList<String>();
-        
+
         for (String messageArray : messages) {
             String[] splittedMessage = messageArray.split("\\n");
             for (String message : splittedMessage) {

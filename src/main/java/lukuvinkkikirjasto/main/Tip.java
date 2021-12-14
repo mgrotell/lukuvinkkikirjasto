@@ -61,6 +61,18 @@ public class Tip implements TipI {
                 this.description + "\nURL: " + this.url + "\nType: " + this.type +
                 "\nTags: " + this.tags + "\nComments: " + this.comment + "\nRelated courses: " + this.courses + "\n\n";
     }
+    @Override
+    public int hashCode() {
+        int result = 17;
+        return result = 31 * result + header.hashCode();
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tip tip = (Tip) o;
+        return header.equals(tip.header) && creator.equals(tip.creator) && url.equals(tip.url) && type.equals(tip.type) && description.equals(tip.description) && tags.equals(tip.tags) && comment.equals(tip.comment) && courses.equals(tip.courses);
+    }
 
 }

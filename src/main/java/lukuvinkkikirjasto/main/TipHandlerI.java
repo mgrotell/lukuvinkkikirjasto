@@ -8,7 +8,7 @@ public interface TipHandlerI {
 
     public ArrayList<Tip> getAllTips();
 
-    public void deleteTip(String id);
+    public void deleteTip(String header);
 
     public String searchTipsByTerm(String searchString, String searchField);
 

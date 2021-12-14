@@ -1,4 +1,4 @@
-package databaseTests;
+package databasetests;
 
 import lukuvinkkikirjasto.storage.Database;
 import org.junit.Before;
@@ -15,7 +15,7 @@ public class DatabaseTest {
     private Database testDatabase;
 
     @Before
-    public void Initialize() {
+    public void initialize() {
         testDatabase = new Database(true);
     }
 
@@ -33,7 +33,9 @@ public class DatabaseTest {
     @Test
     public void testConnectionCreatesNewDatabaseFile() {
         File myObj = new File("test.db");
-        if (myObj.exists()) myObj.delete();
+        if (myObj.exists()) {
+            myObj.delete();
+        }
         myObj = new File("test.db");
         assertFalse("testDatabase should be removed", myObj.exists());
         Connection connection = testDatabase.getConnection();

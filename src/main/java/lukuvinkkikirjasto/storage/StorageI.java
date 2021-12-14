@@ -19,4 +19,6 @@ public interface StorageI {
     ArrayList<Tip> getTipsFromQuery(ResultSet queryResult);
 
     void editTip(String header, String column, String term);
+
+    void deleteTip(String header);
 }

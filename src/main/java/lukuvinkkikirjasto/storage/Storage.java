@@ -146,6 +146,7 @@ public class Storage implements StorageI {
 
         }
     }
+
     public void deleteTip(String header) {
         try {
             Connection connection = this.db.getConnection();

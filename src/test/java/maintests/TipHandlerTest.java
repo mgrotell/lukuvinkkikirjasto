@@ -1,4 +1,4 @@
-package mainTests;
+package maintests;
 
 
 import lukuvinkkikirjasto.main.Tip;
@@ -42,51 +42,97 @@ public class TipHandlerTest {
 
     }
 
+
     @Test
-    public void addOneList(){
+    public void addOneList() {
         tipH.createTip("Ada", "Lovelace",
-                "Isaac","Asimov", "Book","RickROll",
-                "Mormoni","Lama");
+                "Isaac", "Asimov", "Book", "RickROll",
+                "Mormoni", "Lama");
 
-        assertEquals(21,tipH.getAllTips().size());
+        assertEquals(21, tipH.getAllTips().size());
 
     }
 
     @Test
-    public void addOneListFoundByHeader(){
+    public void addOneListFoundByHeader() {
         tipH.createTip("Ada", "Lovelace",
-                "Isaac","Asimov", "book","RickROll",
-                "Mormoni","Lama");
+                "Isaac", "Asimov", "book", "RickROll",
+                "Mormoni", "Lama");
 
 
-        System.out.println(tipH.getAllTips());
+        assertTrue(tipH.searchTipsByTerm("", "Ada").contains("Ada"));
 
-        assertTrue(tipH.searchTipsByTerm("book","Ada").contains("Ada"));
-        assertTrue(tipH.searchTipsByTerm("book","Ada").contains("book"));
 
     }
 
     @Test
-    public void addTwoListFoundByHeader(){
+    public void addTwoListFoundByHeader() {
 
+        tipH.createTip("Ada", "Lovelace",
+                "Isaac", "Asimov", "book", "RickROll",
+                "Mormoni", "Lama");
+
+        tipH.createTip("BDA", "Lovelace",
+                "Isaac", "Asimov", "blog", "RickROll",
+                "Mormoni", "Lama");
+
+
+        assertTrue(tipH.searchTipsByTerm("", "Ada").contains("Ada"));
+        assertTrue(tipH.searchTipsByTerm("", "BDA").contains("BDA"));
+
+    }
+
+
+    @Test
+    public void addOneListFoundByType() {
+        tipH.createTip("Ada", "Lovelace",
+                "Isaac", "Asimov", "book", "RickROll",
+                "Mormoni", "Lama");
+
+
+        assertTrue(tipH.searchTipsByTerm("", "Ada").contains("Ada"));
 
 
     }
 
+    @Test
+    public void addTwoListFoundByType() {
+
+        tipH.createTip("Ada", "Lovelace",
+                "Isaac", "Asimov", "book", "RickROll",
+                "Mormoni", "Lama");
+
+        tipH.createTip("BDA", "Lovelace",
+                "Isaac", "Asimov", "blog", "RickROll",
+                "Mormoni", "Lama");
+
+
+        assertTrue(tipH.searchTipsByTerm("", "Ada").contains("Ada"));
+        assertTrue(tipH.searchTipsByTerm("", "BDA").contains("BDA"));
+
+    }
 
 
     class StorageForTest implements StorageI {
 
 
-        private  ArrayList<Tip> tips = new ArrayList<>();
+        private ArrayList<Tip> tips = new ArrayList<>();
         private ArrayList<String> words;
         private HashMap<String, String> tipOptions;
 
         @Override
         public void addToStorage(Tip tip) {
 
+            boolean check = true;
+            for (Tip tipToBeAdded : tips) {
+                if (tipToBeAdded.getHeader().equals(tip.getHeader())) {
+                    check = false;
+                }
+            }
 
-            tips.add(tip);
+            if (check) {
+                tips.add(tip);
+            }
 
         }
 
@@ -122,7 +168,7 @@ public class TipHandlerTest {
 
             for (int i = 0; i < 20; i++) {
 
-                String type = ""+ randomWord.nextInt(5);
+                String type = "" + randomWord.nextInt(5);
 
                 Tip tipN = new Tip(words.get(randomWord.nextInt(11)),
                         words.get(randomWord.nextInt(11)),
@@ -146,15 +192,24 @@ public class TipHandlerTest {
 
         @Override
         public ArrayList<Tip> getTipsWithSearchTerm(String column, String term) {
-
             ArrayList<Tip> tipOne = new ArrayList();
-                for(Tip tip:tips){
-                    if(tip.getHeader().contains(term) && tip.getType().equals(column)) {
+            if (column.equals("")) {
+
+                for (Tip tip : tips) {
+                    if (tip.getHeader().contains(term)) {
                         tipOne.add(tip);
                     }
                 }
 
-            return  tipOne;
+            } else {
+
+                for (Tip tip : tips) {
+                    if (tip.getType().contains(term)) {
+                        tipOne.add(tip);
+                    }
+                }
+            }
+            return tipOne;
         }
 
         @Override
