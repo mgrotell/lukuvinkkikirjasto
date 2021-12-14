@@ -94,8 +94,8 @@ public class TipHandler implements TipHandlerI {
     }
 
 
-    public void deleteTip(String id) {
-        // storage.deleteTip(id);
+    public void deleteTip(String header) {
+        storage.deleteTip(header);
     }
 
 

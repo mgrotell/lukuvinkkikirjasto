@@ -45,10 +45,9 @@ public class TextUI {
             this.input.println("\n1. List all tips.\n" +
                     "2. Create a new tip\n" +
                     "3. Search tips\n" +
-                    "4. Edit tips\n" +
-                    "5. Delete a tip\n" +
+                    "4. Edit or delete tips\n" +
                     "0. Exit\n" +
-                    "expected input (1/2/3/4/5/0)");
+                    "expected input (1/2/3/4/0)");
 
             String operation = this.input.nextLine();
 
@@ -59,9 +58,7 @@ public class TextUI {
             } else if (operation.equals("3")) {
                 searchTips();  
 	        } else if (operation.equals("4")) {
-                editTips();
-	        } else if (operation.equals("4")) {
-                deleteTips();
+                editAndDeleteTips();
             } else if (operation.equals("0")) {
                 break;
             }
@@ -183,7 +180,7 @@ public class TextUI {
         this.input.println(tipHandler.searchTipsByTerm("tags", tag));
     }
 
-    private void editTips() {
+    private void editAndDeleteTips() {
 
 	    this.input.println("Select the tip to be edited\n" + 
 		    "1. Select by title\n" +
@@ -211,7 +208,7 @@ public class TextUI {
             printSearchResults(tips, counter);
             
         } else {
-            editTips();
+            editAndDeleteTips();
         }
     }
 
@@ -240,7 +237,7 @@ public class TextUI {
 
     private void edit(Tip tip) {
         
-        this.input.println("Let's edit!\n" +
+        this.input.println("\nLet's edit!\n" +
                     "1. Edit title?\n" +
                     "2. ...author?\n" +
                     "3. ...description?\n" + 
@@ -248,20 +245,24 @@ public class TextUI {
                     "5. ...type?\n" +
                     "6. ...tags?\n" +
                     "7. ...comments?\n" +
-                    "8. ...related courses?\n");
+                    "8. ...related courses?\n\n" +
+                    "9. ...delete the tip?\n");
+
         String editLine = this.input.nextLine();  //numero
-        String column = linesToEdit.get(editLine);   //numeroon liittyvä kenttä
-        input.println("Insert new " + column + ":");
-        String newTerm = this.input.nextLine();
-        if (newTerm != null) {
-            tipHandler.editTip(tip.getHeader(), column, newTerm);
-        }
-	       		    
+        if (editLine.equals("9")) {
+            this.input.println("Are you sure you want to delete the tip? (y/n)");
+            String answer = this.input.nextLine();
+            if (answer.equals("y")) {
+                tipHandler.deleteTip(tip.getHeader());
+            } 
+            
+        } else {
+            String column = linesToEdit.get(editLine);   //numeroon liittyvä kenttä
+            input.println("Insert new " + column + ":");
+            String newTerm = this.input.nextLine();
+            if (newTerm != null) {
+                tipHandler.editTip(tip.getHeader(), column, newTerm);
+            }
+        }	       		    
     }
-
-    private void deleteTips() {
-	    this.input.println("Select the tip to delete");
-	    //this.input.println(getTipsAsShortList);
-    }
-
 }
