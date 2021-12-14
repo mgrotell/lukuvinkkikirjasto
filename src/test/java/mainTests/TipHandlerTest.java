@@ -51,6 +51,7 @@ public class TipHandlerTest {
         assertEquals(21,tipH.getAllTips().size());
 
     }
+
     @Test
     public void addOneListFoundByHeader(){
         tipH.createTip("Ada", "Lovelace",
@@ -60,10 +61,18 @@ public class TipHandlerTest {
 
         System.out.println(tipH.getAllTips());
 
-        assertTrue(tipH.searchTipsByType("book","Ada").contains("Ada"));
-        assertTrue(tipH.searchTipsByType("book","Ada").contains("book"));
+        assertTrue(tipH.searchTipsByTerm("book","Ada").contains("Ada"));
+        assertTrue(tipH.searchTipsByTerm("book","Ada").contains("book"));
 
     }
+
+    @Test
+    public void addTwoListFoundByHeader(){
+
+
+
+    }
+
 
 
     class StorageForTest implements StorageI {
@@ -151,6 +160,11 @@ public class TipHandlerTest {
         @Override
         public ArrayList<Tip> getTipsFromQuery(ResultSet queryResult) {
             return null;
+        }
+
+        @Override
+        public void editTip(String header, String column, String term) {
+
         }
     }
 
