@@ -25,8 +25,8 @@ application {
 
 
 dependencies {
-    testImplementation 'io.cucumber:cucumber-java:7.0.0'
-    testImplementation 'io.cucumber:cucumber-junit:7.0.0'
+    testImplementation 'io.cucumber:cucumber-java:7.1.0'
+    testImplementation 'io.cucumber:cucumber-junit:7.1.0'
     implementation 'org.xerial:sqlite-jdbc:3.8.11'
     testImplementation group: 'junit', name: 'junit', version: '4.4'
 }
