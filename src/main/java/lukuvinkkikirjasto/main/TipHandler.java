@@ -89,7 +89,7 @@ public class TipHandler implements TipHandlerI {
     }
 
     public void editTip(String header, String column, String newTerm) {
-        
+
         storage.editTip(header, column, newTerm);
     }
 
