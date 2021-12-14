@@ -88,16 +88,7 @@ public class Storage implements StorageI {
         try {
             Connection connection = this.db.getConnection();
             String sql = "";
-            if (column.equals("header")) {
-                sql = "SELECT * FROM tips WHERE header like ?";
-                System.out.println(sql);
-            } else if (column.equals("creator")) {
-                sql = "SELECT * FROM tips WHERE creator like ?";
-            } else if (column.equals("type")) {
-                sql = "SELECT * FROM tips WHERE type like ?";
-            } else if (column.equals("tags")) {
-                sql = "SELECT * FROM tips WHERE tags like ?";
-            }
+            sql = "SELECT * FROM tips WHERE " + column + " like ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, "%" + term + "%");
             ResultSet queryResult = statement.executeQuery();
@@ -144,16 +135,7 @@ public class Storage implements StorageI {
         try {
             Connection connection = this.db.getConnection();
             String sql = "";
-            if (column.equals("header")) {
-                sql = "UPDATE tips SET header = ? WHERE header = ?";
-                System.out.println(sql);
-            } else if (column.equals("creator")) {
-                sql = "UPDATE tips SET creator = ? WHERE header = ?";
-            } else if (column.equals("type")) {
-                sql = "UPDATE tips SET type = ? WHERE header = ?";
-            } else if (column.equals("tags")) {
-                sql = "UPDATE tips SET tags = ? WHERE header = ?";
-            }
+            sql = "UPDATE tips SET " + column + " = ? WHERE header = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, newTerm);
             statement.setString(2, header);
