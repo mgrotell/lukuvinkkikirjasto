@@ -69,8 +69,12 @@ public class Tip implements TipI {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         Tip tip = (Tip) o;
         return header.equals(tip.header) && creator.equals(tip.creator) && url.equals(tip.url) && type.equals(tip.type) && description.equals(tip.description) && tags.equals(tip.tags) && comment.equals(tip.comment) && courses.equals(tip.courses);
     }

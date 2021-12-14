@@ -221,6 +221,11 @@ public class TipHandlerTest {
         public void editTip(String header, String column, String term) {
 
         }
+
+        @Override
+        public void deleteTip(String header) {
+
+        }
     }
 
 

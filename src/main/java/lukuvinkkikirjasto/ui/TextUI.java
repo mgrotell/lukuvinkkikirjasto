@@ -235,12 +235,9 @@ public class TextUI {
 
     private void edit(Tip tip) {
         
-        this.input.println("\nLet's edit!\n" +
-                    "1. Edit title?\n" +
-                    "2. ...author?\n" +
-                    "3. ...description?\n" + 
-                    "4. ...URL?\n" +
-                    "5. ...type?\n" +
+        this.input.println("\nLet's edit!\n" + "1. Edit title?\n" +
+                    "2. ...author?\n" + "3. ...description?\n" +
+                    "4. ...URL?\n" + "5. ...type?\n" +
                     "6. ...tags?\n" +
                     "7. ...comments?\n" +
                     "8. ...related courses?\n\n" +
