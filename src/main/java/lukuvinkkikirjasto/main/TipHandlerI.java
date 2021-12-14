@@ -11,4 +11,5 @@ public interface TipHandlerI {
     public void deleteTip(String id);
 
     public String searchTipsByTerm(String searchString, String searchField);
+
 }
