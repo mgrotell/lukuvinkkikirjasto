@@ -110,7 +110,15 @@ public class DefiningSteps {
 
         ArrayList<String> consoleMessages = outputToUnifiedArrayList(appOutput);
 
-        assertTrue(consoleMessages.contains("Type: " + typeOfItem));
+        boolean found = false;
+        for(String created:consoleMessages){
+
+            if(created.contains(typeOfItem)){
+                found = true;
+            }
+
+        }
+        assertTrue(found);
     }
 
     @Then("prints out a list with items by {string} and no entries by {string}")
@@ -125,7 +133,7 @@ public class DefiningSteps {
 
     @Then("tip is created")
     public void tipIsCreated() {
-        assertEquals(1, this.testR.tipsCreated);
+        assertEquals(1, this.tipHandler.getAllTips().size());
     }
 
     private ArrayList<String> outputToUnifiedArrayList(ArrayList<String> messages) {

@@ -66,32 +66,13 @@ public class Tip implements TipI {
         int result = 17;
         return result = 31 * result + header.hashCode();
     }
+
     @Override
     public boolean equals(Object o) {
-        if(this == o) {
-            return true;
-        }
-        if (!(o instanceof Tip)) {
-            return false;
-        }
-        Tip other = (Tip) o;
-        if (!getHeader().equals(other.getHeader())) {
-            return false;
-        } else if (!getComment().equals(other.getComment())) {
-            return false;
-        } else if (!getCourses().equals(other.getCourses())) {
-            return false;
-        } else if (!getCreator().equals(other.getCreator())) {
-            return false;
-        } else if (!getDescription().equals(other.getDescription())) {
-            return false;
-        } else if (!getTags().equals(other.getTags())) {
-            return false;
-        } else if (!getType().equals(other.getType())) {
-            return false;
-        } else if (!getUrl().equals(other.getUrl())) {
-            return false;
-        }
-        return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Tip tip = (Tip) o;
+        return header.equals(tip.header) && creator.equals(tip.creator) && url.equals(tip.url) && type.equals(tip.type) && description.equals(tip.description) && tags.equals(tip.tags) && comment.equals(tip.comment) && courses.equals(tip.courses);
     }
+
 }
