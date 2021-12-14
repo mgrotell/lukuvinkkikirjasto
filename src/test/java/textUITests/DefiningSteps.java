@@ -82,44 +82,6 @@ public class DefiningSteps {
         textUi.run();
     }
 
-    @Then("in the list printed by the app there are writers {string} and {string}")
-    public void inTheListPrintedByTheAppThereAreWriters(String firstWriter, String secondWriter) {
-        // If this test breaks, it is possible that the cause of the failure is that
-        // the order of how the app prints the list has changed. Hence, see
-        // how appOutput looks like
-        
-        ArrayList<String> appOutput = testR.getConsoleMessages();
-
-        String printedTips = appOutput.get(1);
-
-        String[] printedTipsAsArray = printedTips.split("\\n");
-
-        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: " + firstWriter));
-        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: " + secondWriter));
-    }
-
-    @Then("in the list printed by the app there is an item with the type {string} and writer {string}")
-    public void inTheListPrintedByTheAppThereIsAnItemWithTheTypeAndWriter(String typeOfItem, String writer) {
-        ArrayList<String> appOutput = testR.getConsoleMessages();
-
-        String printedTips = appOutput.get(1);
-
-        String[] printedTipsAsArray = printedTips.split("\\n");
-
-        assertTrue(Arrays.asList(printedTipsAsArray).contains("Type: " + typeOfItem));
-        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: " + writer));
-    }
-
-    @Then("after adding a certain type of item in the list printed by the app there is an item with the type {string}")
-    public void afterAddingACertainTypeOfItemInTheListPrintedByTheAppThereIsAnItemWithTheTypeAndWriter(String typeOfItem) {
-        ArrayList<String> appOutput = testR.getConsoleMessages();
-
-        String printedTips = appOutput.get(12);
-        String[] printedTipsAsArray = printedTips.split("\\n");
-
-        assertTrue(Arrays.asList(printedTipsAsArray).contains("Type: " + typeOfItem));
-    }
-
     @When("{string}, {string}, {string}, {string}, {string}, {string}, {string}, {string} are entered")
     public void areEntered(String type, String header, String description, String creator, String url, String tags, String comment, String courses) {
         testR.addLine(type);
@@ -135,16 +97,33 @@ public class DefiningSteps {
         textUi.run();
     }
 
-    @Then("the app returns a list with items that have Martin Fowler as the writer and no entries by Fredrick Brooks")
-    public void theAppReturnsAListWithItemsThatHaveMartinFowlerAsTheWriterAndNoEntriesByFredrickBrooks() {
+    @Then("printed list has items by {string} and {string}")
+    public void printedListHasItemsBy(String firstWriter, String secondWriter) {        
+        ArrayList<String> appOutput = testR.getConsoleMessages();
+        
+        ArrayList<String> consoleMessages = outputToUnifiedArrayList(appOutput);
+
+        assertTrue(consoleMessages.contains("Writer: " + firstWriter));
+        assertTrue(consoleMessages.contains("Writer: " + secondWriter));
+    }
+
+    @Then("the app has stored an item that has the type {string}")
+    public void theAppHasStoredAnItemThatHasTheType(String typeOfItem) {
         ArrayList<String> appOutput = testR.getConsoleMessages();
 
-        String printedTips = appOutput.get(4);
+        ArrayList<String> consoleMessages = outputToUnifiedArrayList(appOutput);
 
-        String[] printedTipsAsArray = printedTips.split("\\n");
+        assertTrue(consoleMessages.contains("Type: " + typeOfItem));
+    }
 
-        assertTrue(Arrays.asList(printedTipsAsArray).contains("Writer: Martin Fowler"));
-        assertFalse(Arrays.asList(printedTipsAsArray).contains("Writer: Martin Fowler"));    
+    @Then("prints out a list with items by {string} and no entries by {string}")
+    public void printsOutsAListWithItemsByAndNoEntriesBy(String firstAuthor, String secondAuthor) {
+        ArrayList<String> appOutput = testR.getConsoleMessages();
+
+        ArrayList<String> consoleMessages = outputToUnifiedArrayList(appOutput);
+
+        assertTrue(consoleMessages.contains("Writer: " + firstAuthor));
+        assertFalse(consoleMessages.contains("Writer: " + secondAuthor));    
     }
 
     @Then("tip is created")
@@ -152,6 +131,18 @@ public class DefiningSteps {
         assertEquals(1, this.testR.tipsCreated);
     }
 
+    private ArrayList<String> outputToUnifiedArrayList(ArrayList<String> messages) {
+        ArrayList<String> consoleMessagesAsIndividualStrings = new ArrayList<String>();
+        
+        for (String messageArray : messages) {
+            String[] splittedMessage = messageArray.split("\\n");
+            for (String message : splittedMessage) {
+                consoleMessagesAsIndividualStrings.add(message);
+            }
+        }
+
+        return consoleMessagesAsIndividualStrings;
+    }
 }
 
 class TestReader implements ReaderIO {
