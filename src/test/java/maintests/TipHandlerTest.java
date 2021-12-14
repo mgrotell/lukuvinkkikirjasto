@@ -1,4 +1,4 @@
-package mainTests;
+package maintests;
 
 
 import lukuvinkkikirjasto.main.Tip;
