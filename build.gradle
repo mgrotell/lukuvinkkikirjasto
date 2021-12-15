@@ -23,6 +23,11 @@ application {
     mainClass = 'lukuvinkkikirjasto.Main'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'lukuvinkkikirjasto.Main'
+    }
+}
 
 dependencies {
     testImplementation 'io.cucumber:cucumber-java:7.1.0'
