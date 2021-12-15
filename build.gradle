@@ -1,8 +1,10 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'application'
-apply plugin: 'checkstyle'
-
+plugins {
+    id  'java'
+    id  'jacoco'
+    id	'application'
+    id  'checkstyle'
+    id  'com.github.johnrengelman.shadow' version '7.1.1'
+}
 
 mainClassName = 'lukuvinkkikirjasto.Main'
 
