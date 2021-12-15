@@ -34,3 +34,6 @@ Nyt kokeillaan uudestaan __Syötteellä 1__:
 ![image](https://user-images.githubusercontent.com/67758940/144004813-5c598af6-87f9-4ec9-83e9-22dcb5a468b0.png)
 
 __Syöte 0__ poistuu ohjelmasta
+
+## Releaset
+[Loppudemo](https://github.com/msiivone/lukuvinkkikirjasto/releases/tag/v1)
