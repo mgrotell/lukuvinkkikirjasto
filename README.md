@@ -6,6 +6,7 @@
 
 [Loppuraportti](https://docs.google.com/document/d/1JsrWrYCFOLRgruDYP0OWP8xox_sqBnue4UOiK3Vnhhk/edit?usp=sharing)
 
+
 ## Ohjelman suoritus ohjeet
 
 Ohjelma on testattu ja todettu toimivaksi Gradlen 7.2 versiolla.
